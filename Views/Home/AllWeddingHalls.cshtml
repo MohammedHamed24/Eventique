@@ -1,0 +1,192 @@
+﻿@model List<WeddingHall>
+@{
+    ViewData["Title"] = "AllWeddingHalls";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+
+@section Styles{
+    <link href="~/css/AllWeddingHallsStyle.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/search/css/main.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/pato/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/css/main.css">
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<section style="">
+    <div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(/Images/pic20.jpg);">
+        <div class="col-md-8 offset-md-2 mt-5" style="">
+        </div>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center">
+                        <h2 class="page-title">Wedding Halls</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Wedding Halls</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="roberto-rooms-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    @foreach (var item in Model)
+                    {
+                        <!-- Single Room Area -->
+                        <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="900ms">
+                            <!-- Room Thumbnail -->
+                            <div class="room-thumbnail">
+                                <img src="@item.Hall_ImgPath" alt="">
+                            </div>
+                            <!-- Room Content -->
+                            <div class="room-content">
+                                <h2>@item.Name</h2>
+                                <h4>@item.Hall_Price$ <span>/ Day</span></h4>
+                                <div class="room-feature">
+                                    <h6>Type: <span>@item.HallType</span></h6>
+                                    <h6>Capacity: <span>Max persion @item.Capacity</span></h6>
+                                    <h6>Services: <span> @item.OtherServices</span></h6>
+                                </div>
+                                <a href="~/Home/TestWeddView/@item.ID" class="btn view-detail-btn" style="background:none;border:none;">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    }
+                    <!-- Pagination -->
+                    <nav class="roberto-pagination wow fadeInUp mb-100" data-wow-delay="1000ms">
+                    </nav>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <!-- Hotel Reservation Area -->
+                    <img src="~/Images/couple01.png" title="pic" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="s007">
+        <form method="post" asp-controller="Home" asp-action="AllWeddingHalls">
+            <div class="inner-form">
+                <div class="advance-search">
+                    <span class="desc">Filtering Result:  @Model.Count()</span>
+                    <div class="row">
+                        <div class="form-group">
+                            <input name="Price" id="Price" type="number" min="5000" max="60000" placeholder="Max Price" class="form-control" required>
+                        </div>
+                        <div class="input-field">
+                            <div class="input-select">
+                                <select data-trigger="" name="HallType" required>
+                                    <option placeholder="" value="">Hall Type</option>
+                                    <option>Club</option>
+                                    <option>Resturant</option>
+                                    <option>Villa</option>
+                                    <option>Hotel</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <div class="input-select">
+                                <select data-trigger="" name="OtherServices" required>
+                                    <option placeholder="" value="">Other Servvices</option>
+                                    <option>Car Parking</option>
+                                    <option>Meals</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row second">
+                        <div class="form-group">
+                            <input name="Capacity" id="Capacity" type="number" min="100" max="600" placeholder="Max Capacity" class="form-control" required>
+                        </div>
+                        <div class="input-field">
+                            <div class="input-select">
+                                <select data-trigger="" name="Regon" required>
+                                    <option placeholder="" value="">Regon</option>
+                                    <option>Minia</option>
+                                    <option>Cairo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <div class="input-select">
+                                <select data-trigger="" name="Date" required>
+                                    <option placeholder="" value="">Date Range</option>
+                                    <option>This Month</option>
+                                    <option>Next Month</option>
+                                    <option>other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row third">
+                        <div class="input-field">
+                            <button class="btn-search" type="submit">Search</button>
+                            <button class="btn-delete" id="delete">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+@section Scripts{
+    @*---------------------for search bar -----------------------*@
+    <script src="~/search/js/extention/choices.js"></script>
+    <script>
+        const customSelects = document.querySelectorAll("select");
+        const deleteBtn = document.getElementById('delete')
+        const choices = new Choices('select',
+            {
+                searchEnabled: false,
+                removeItemButton: true,
+                itemSelectText: '',
+            });
+        for (let i = 0; i < customSelects.length; i++) {
+            customSelects[i].addEventListener('addItem', function (event) {
+                if (event.detail.value) {
+                    let parent = this.parentNode.parentNode
+                    parent.classList.add('valid')
+                    parent.classList.remove('invalid')
+                }
+                else {
+                    let parent = this.parentNode.parentNode
+                    parent.classList.add('invalid')
+                    parent.classList.remove('valid')
+                }
+            }, false);
+        }
+        deleteBtn.addEventListener("click", function (e) {
+            e.preventDefault()
+            const deleteAll = document.querySelectorAll('.choices__button')
+            for (let i = 0; i < deleteAll.length; i++) {
+                deleteAll[i].click();
+            }
+        });
+
+    </script>
+    @*---------------------for search bar -----------------------*@
+
+    <script src="~/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="~/js/bootstrap/popper.min.js"></script>
+    <script src="~/js/bootstrap/bootstrap.min.js"></script>
+    <script src="~/js/roberto.bundle.js"></script>
+
+}

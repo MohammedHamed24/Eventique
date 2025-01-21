@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Wedding2</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <div class="logoBanner center"></div>
+        <div class="back"></div>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="position:sticky; position:-webkit-sticky; top:0;">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="../Images/Logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                    Evéntique
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="AllPhotographers">Photographers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Hotels" asp-action="Privacy">Hotels</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Designer" asp-action="Privacy">Designers</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    <section class="footer-sec">
+        <div class="back-footer">
+            <!-- Footer -->
+            <footer class="page-footer font-small blue pt-4">
+
+                <!-- Footer Links -->
+                <div class="container-fluid text-center text-md-left">
+
+                    <!-- Grid row -->
+                    <div class="row">
+
+                        <!-- Grid column -->
+                        <div class="col-md-6 mt-md-0 mt-3">
+
+                            <!-- Content -->
+                            <h5 class="text-uppercase" style="color: black;font-weight: bold;">Footer Content</h5>
+                            <p style="color:white">Here you can use rows and columns to organize your footer content.</p>
+
+                        </div>
+                        <!-- Grid column -->
+
+                        <hr class="clearfix w-100 d-md-none pb-3">
+
+                        <!-- Grid column -->
+                        <div class="col-md-3 mb-md-0 mb-3">
+
+                            <!-- Links -->
+                            <h5 class="text-uppercase" style="font-weight: bold;">Our Services</h5>
+
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="#!">photographers</a>
+                                </li>
+                                <li>
+                                    <a href="#!">wedding planners</a>
+                                </li>
+                                <li>
+                                    <a href="#!">invittation style</a>
+                                </li>
+                                <li>
+                                    <a href="#!">hotels and holes</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <!-- Grid column -->
+                        <!-- Grid column -->
+                        <div class="col-md-3 mb-md-0 mb-3">
+
+                            <!-- Links -->
+                            <h5 class="text-uppercase" style="font-weight: bold;">contact Us</h5>
+
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="#!">Photographer</a>
+                                </li>
+                                <li>
+                                    <a href="#!">Hotels</a>
+                                </li>
+                                <li>
+                                    <a href="#!">Designers</a>
+                                </li>
+                                <li>
+                                    <a href="#!">About us</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <!-- Grid column -->
+
+                    </div>
+                    <!-- Grid row -->
+
+                </div>
+            </footer>
+        </div>
+        <footer class="page-footer font-small" style="background-color: black;">
+            <div class="footer-copyright text-center py-3">
+                © 2020 Copyright:
+                <a href="https://mdbootstrap.com/">Evantique</a>
+            </div>
+        </footer>
+    </section>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/popper.js/umd/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/ph.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

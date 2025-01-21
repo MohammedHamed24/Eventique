@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/PhotographerBack.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="~/Images/newLogo.png" />
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container-fluid" style="height:100%">
+        <section class="row">
+            <div class="col-sm-3" id="aside">
+                <div class="row" id="Admin">
+                    Admin
+                </div>
+                <div class="row" style="width: 100%; position: relative;">
+                    <a class="link" href="">
+                        <div class="card" id="dash">
+                            <div>
+                                <div class="fas fa-chart-pie"></div>
+                                <span> Dashboard</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="row" style="width: 100%; position: relative;">
+                    <a class="link" asp-area="" asp-controller="Photographer" asp-action="index">
+                        <div class="card" id="Photographer">
+                            <div>
+                                <div class="fas fa-camera-retro"></div>
+                                <span>Photographers</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="row" style="width: 100%; position: relative;">
+                    <a class="link" asp-area="" asp-controller="Designers" asp-action="Index">
+                        <div class="card" id="Designer">
+                            <div>
+                                <div class="fas fa-object-group"></div>
+                                <span> Designers</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="row" style="width: 100%; position: relative;">
+                    <a class="link" asp-area="" asp-controller="Hotels" asp-action="Index">
+                        <div class="card" id="Designer">
+                            <div>
+                                <div class="fas fa-archway"></div>
+                                <span>Hotels</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="row" style="width: 100%; position: relative;">
+                    <a class="link" href="">
+                        <div class="card" id="Member">
+                            <div>
+                                <div class="fas fa-user-check"></div>
+                                <span> Users</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-9" id="RightSide">
+                <nav class="row card">
+                    
+                    <div>
+                       
+                    </div>
+                </nav>
+                @RenderBody();
+            </div>
+        </section>
+    </div>
+
+
+
+    <script src="~/lib/font-awesome/js/all.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("scripts2", required: false)
+</body>
+</html>

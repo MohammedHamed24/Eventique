@@ -1,0 +1,186 @@
+﻿@model List<Photographer>
+@{
+    ViewData["Title"] = "AllPhotographers";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+@section Styles{
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link rel="icon" type="image/png" href="~/Images/newLogo.png" />
+    <link rel="stylesheet" type="text/css" href="~/pato/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/fonts/themify/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/vendor/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/vendor/lightbox2/css/lightbox.min.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/css/main.css">
+    <link href="~/css/allphotogrphersStyle.css" rel="stylesheet" />
+    <link href="~/css/AllWeddingHallsStyle.css" rel="stylesheet" />
+    <link href="~/search/css/main.css" rel="stylesheet" />
+
+
+}
+<section class="rooms-area section-padding-100-0" style="">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(/Images/coverphoto.png);">
+        <div class="col-md-8 offset-md-2 mt-5" style="">
+        </div>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center">
+                        <h2 class="page-title">Photographers</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Photographers</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top:100px">
+        <div class="row justify-content-center">
+            @{
+                foreach (var item in Model)
+                {
+                    <!-- Single Rooms Area -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="single-rooms-area wow fadeInUp" data-wow-delay="300ms">
+                            <!-- Thumbnail -->
+                            <div class="bg-thumbnail bg-img" style="background-image: url(@item.ImagePath);"></div>
+                            <!-- Price -->
+                            <p class="price-from">@item.Ph_Price $ /session</p>
+                            <!-- Rooms Text -->
+                            <div class="rooms-text">
+                                <div class="line"></div>
+                                <h4>@item.Ph_Name</h4>
+                                <p>@item.Description</p>
+                            </div>
+                            <!-- Book Room -->
+                            <a href="~/Home/TestPhoView/@item.Ph_Id" class="book-room-btn palatin-btn">Go To Profile </a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+
+<input name="" id="" class="btn btn-danger" type="button" value="More.."
+       style="margin-top: 100px; padding: 10px;margin-left: auto;margin-right: auto; text-align: center;display: block;">
+<div class="s007">
+    <form method="post" asp-controller="Home" asp-action="AllPhotographers">
+        <div class="inner-form">
+            <div class="advance-search">
+                `
+                <span class="desc">Filtering Result:  @Model.Count()</span>
+                <div class="row">
+                    <div class="input-field">
+                        <input name="Price" id="Price" type="number" min="1000" max="6000" placeholder="Max Price" class="form-control" required>
+                    </div>
+                    <div class="input-field">
+                        <div class="input-select">
+                            <select data-trigger="" name="CameraType" required>
+                                <option placeholder="" value="">Camera Type</option>
+                                @{
+                                    foreach (var item in Model)
+                                    {
+                                        <option>@item.Ph_CameraType</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row second">
+                    <div class="input-field">
+                        <div class="input-select">
+                            <select data-trigger="" name="Regon" required>
+                                <option placeholder="" value="">Regon</option>
+                                <option>Minia</option>
+                                <option>Cairo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <div class="input-select">
+                            <select data-trigger="" name="Date" required>
+                                <option placeholder="" value="">Date Range</option>
+                                <option>This Month</option>
+                                <option>Next Month</option>
+                                <option>other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row third">
+                    <div class="input-field">
+                        <button class="btn-search" type="submit">Search</button>
+                        <button class="btn-delete" id="delete">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    @*---------------------for search bar -----------------------*@
+    <script src="~/search/js/extention/choices.js"></script>
+    <script>
+        const customSelects = document.querySelectorAll("select");
+        const deleteBtn = document.getElementById('delete')
+        const choices = new Choices('select',
+            {
+                searchEnabled: false,
+                removeItemButton: true,
+                itemSelectText: '',
+            });
+        for (let i = 0; i < customSelects.length; i++) {
+            customSelects[i].addEventListener('addItem', function (event) {
+                if (event.detail.value) {
+                    let parent = this.parentNode.parentNode
+                    parent.classList.add('valid')
+                    parent.classList.remove('invalid')
+                }
+                else {
+                    let parent = this.parentNode.parentNode
+                    parent.classList.add('invalid')
+                    parent.classList.remove('valid')
+                }
+            }, false);
+        }
+        deleteBtn.addEventListener("click", function (e) {
+            e.preventDefault()
+            const deleteAll = document.querySelectorAll('.choices__button')
+            for (let i = 0; i < deleteAll.length; i++) {
+                deleteAll[i].click();
+            }
+        });
+
+    </script>
+    @*---------------------for search bar -----------------------*@
+
+
+    <script src="~/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="~/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="~/js/bootstrap/bootstrap.min.js"></script>
+    <!-- Active js -->
+    <script src="~/js/active.js"></script>
+}
+

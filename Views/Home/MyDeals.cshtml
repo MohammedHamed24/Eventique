@@ -1,0 +1,356 @@
+﻿
+@{
+    ViewData["Title"] = "MyDeals";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+
+@section Styles {
+    <link rel="icon" type="image/png" href="~/Images/newLogo.png" />
+    <link rel="stylesheet" type="text/css" href="~/pato/fonts/themify/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/css/main.css">
+    <link rel="stylesheet" href="~/myDeals/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/myDeals/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/myDeals/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/myDeals/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/myDeals/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/myDeals/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/myDeals/css/slicknav.min.css" type="text/css">
+    @*<link rel="stylesheet" href="~/myDeals/css/style.css" type="text/css">*@
+    <link rel="stylesheet" href="~/assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="~/assets/css/style.css" />
+    <link href="~/css/AllWeddingHallsStyle.css" rel="stylesheet" />
+    <!-- Stylesheets -->
+}
+@****************************************************************************************@
+<div class="modal fade" id="ModalDeletePho">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-controller="Home" asp-action="DeletePhoDeal">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Offer</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <input type="hidden" id="ID" name="ID" />
+                <div class="modal-body">
+                    <p>Are you sure want to delete this Offer?</p>
+                    <p class="text-warning"><small>this Action cannot be undone</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="cancel" />
+                    <input type="submit" class="btn btn-danger" value="Delete" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@*******************************************************************************************@
+@****************************************************************************************@
+<div class="modal fade" id="ModalDeleteDesi">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-controller="Home" asp-action="DeleteDesiDeal">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Offer</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <input type="hidden" id="ID" name="ID" />
+                <div class="modal-body">
+                    <p>Are you sure want to delete this Offer?</p>
+                    <p class="text-warning"><small>this Action cannot be undone</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="cancel" />
+                    <input type="submit" class="btn btn-danger" value="Delete" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@*******************************************************************************************@
+@****************************************************************************************@
+<div class="modal fade" id="ModalDeleteWedd">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-controller="Home" asp-action="DeleteWeddDeal">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Offer</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <input type="hidden" id="ID" name="ID" />
+                <div class="modal-body">
+                    <p>Are you sure want to delete this Offer?</p>
+                    <p class="text-warning"><small>this Action cannot be undone</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="cancel" />
+                    <input type="submit" class="btn btn-danger" value="Delete" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@*******************************************************************************************@
+<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg" style="position:relative;margin-top:250px">
+    <div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(/Images/mydeals.jpeg);">
+        <div class="col-md-8 offset-md-2 mt-5" style="">
+        </div>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center">
+                        <h2 class="page-title">My Deals</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">My Deals</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="row justify-content-center mb-5 pb-2" style="margin-top:100px;">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Deals With Photographers</strong>
+            </div>
+            <div class="table-stats order-table ov-h">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th class="serial">Request ID</th>
+                            <th class="avatar">Avatar</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Price</th>
+                            <th>Offer Title</th>
+                            <th>Message</th>
+                            <th>Request Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{ foreach (var item in ViewData["phoRequest"] as List<Eventique.Models.PhotographerRequest>)
+                            {
+                                <tr>
+                                    <td class="serial">@item.ID</td>
+                                    <td class="avatar">
+                                        <div class="round-img">
+                                            <a href="#"><img class="rounded-circle" src="@item.RequestPhotographer.ImagePath" alt=""></a>
+                                        </div>
+                                    </td>
+                                    <td>@item.RequestPhotographer.Ph_Name</td>
+                                    <td>  <span class="name">@item.Date</span> </td>
+                                    <td> <span class="product">@item.PriceOffer.OffersPrice $</span> </td>
+                                    <td> <span class="product">@item.PriceOffer.OfferTitle $</span> </td>
+                                    <td><span class="count">@item.Message</span></td>
+                                    <td><span class="count">@item.Time</span></td>
+                                    <td>
+                                        <span class="badge badge-complete">@item.Status</span>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0);" id="showdeleteDesignerModal" class="deletepho" data-toggle="modal">
+                                            <span><i class="fa fa-remove" style="font-size:30px"></i></span>
+                                        </a>
+                                        <input type="hidden" class="id" value="@item.ID" />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <p class="text-danger" style="text-align:center">@TempData["msg"]</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mb-5 pb-2">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Deals With Wedding Halls</strong>
+            </div>
+            <div class="table-stats order-table ov-h">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th class="serial">Request ID</th>
+                            <th class="avatar">Avatar</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Offer Title</th>
+                            <th>Price</th>
+                            <th>Message</th>
+                            <th>Request Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{ foreach (var item in ViewData["WeddRequest"] as List<Eventique.Models.WeddingHallsRequest>)
+                            {
+                                <tr>
+                                    <td class="serial">@item.ID</td>
+                                    <td class="avatar">
+                                        <div class="round-img">
+                                            <a href="#"><img class="rounded-circle" src="@item.RequestHotel.Hall_ImgPath" alt=""></a>
+                                        </div>
+                                    </td>
+                                    <td>@item.RequestHotel.Name</td>
+                                    <td>  <span class="name">@item.Date</span> </td>
+                                    <td>  <span class="name">@item.Offer.Title</span> </td>
+                                    <td> <span class="product">@item.Offer.Price $</span> </td>
+                                    <td><span class="count">@item.Message</span></td>
+                                    <td><span class="count">@item.Time</span></td>
+
+                                    <td>
+                                        <span class="badge badge-complete">@item.Status</span>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0);" id="showdeleteDesignerModal" class="deletewedd" data-toggle="modal">
+                                            <span><i class="fa fa-remove" style="font-size:30px"></i></span>
+                                        </a>
+                                        <input type="hidden" class="id" value="@item.ID" />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <p class="text-danger" style="text-align:center">@TempData["msgWedd"]</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-center mb-5 pb-2">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Deals With Designers</strong>
+            </div>
+            <div class="table-stats order-table ov-h">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th class="serial">Request ID</th>
+                            <th class="avatar">Avatar</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Quantitiy</th>
+                            <th>Price</th>
+                            <th>Message</th>
+                            <th>Request Time</th>
+                            <th>Invition Style</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{ foreach (var item in ViewData["DesiRequest"] as List<Eventique.Models.DesignerRequest>)
+                            {
+                                <tr>
+                                    <td class="serial">@item.ID</td>
+                                    <td class="avatar">
+                                        <div class="round-img">
+                                            <a href="#"><img class="rounded-circle" src="@item.RequestHotel.Designer_ImgPath" alt=""></a>
+                                        </div>
+                                    </td>
+                                    <td>@item.RequestHotel.ShopName</td>
+                                    <td>  <span class="name">@item.Date</span> </td>
+                                    <td>@item.Quantity</td>
+                                    <td> <span class="product">@item.price() $</span> </td>
+                                    <td><span class="count">@item.Message</span></td>
+                                    <td><span class="count">@item.Time</span></td>
+                                    <td class="">
+                                        <img src="@item.InvitationStyle.ImageFilePath" style="width:10px; height:15px;">
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-complete">@item.Status</span>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0);" id="showdeleteDesignerModal" class="deletedesi" data-toggle="modal">
+                                            <span><i class="fa fa-remove" style="font-size:30px"></i></span>
+                                        </a>
+                                        <input type="hidden" class="id" value="@item.ID" />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <p class="text-danger" style="text-align:center">@TempData["msgDesi"]</p>
+            </div>
+        </div>
+    </div>
+</div>
+@*Breadcrumb Section End
+    Shoping Cart Section Begin*@
+
+<!-- Shoping Cart Section End -->
+
+@section Scripts {
+    <script src="~/myDeals/js/jquery-3.3.1.min.js"></script>
+    <script src="~/myDeals/js/bootstrap.min.js"></script>
+    <script src="~/myDeals/js/jquery.nice-select.min.js"></script>
+    <script src="~/myDeals/js/jquery-ui.min.js"></script>
+    <script src="~/myDeals/js/jquery.slicknav.js"></script>
+    <script src="~/myDeals/js/mixitup.min.js"></script>
+    <script src="~/myDeals/js/owl.carousel.min.js"></script>
+    <script src="~/myDeals/js/main.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnShowModal").click(function () {
+                $("#ModalCreate").modal('show');
+            });
+
+            $("#OfferEndDate").datepicker({
+                minDate: 0
+            });
+
+            $(".deletepho").click(function () {
+                $("#ModalDeletePho").modal('show');
+            });
+
+            $(".deletedesi").click(function () {
+                $("#ModalDeleteDesi").modal('show');
+            });
+
+            $(".deletewedd").click(function () {
+                $("#ModalDeleteWedd").modal('show');
+            });
+
+            $('table .deletepho').on('click', function () {
+                var id = $(this).parent().find('.id').val();
+                $("#ModalDeletePho #ID").val(id);
+            });
+
+            $('table .deletedesi').on('click', function () {
+                var id = $(this).parent().find('.id').val();
+                $("#ModalDeleteDesi #ID").val(id);
+            });
+
+            $('table .deletewedd').on('click', function () {
+                var id = $(this).parent().find('.id').val();
+                $("#ModalDeleteWedd #ID").val(id);
+            });
+
+
+        });
+    </script>
+
+}

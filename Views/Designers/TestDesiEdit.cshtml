@@ -1,0 +1,220 @@
+﻿@model Eventique.Models.Designer
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "My Prpfile";
+    Layout = "~/Views/Shared/_BackViewLayout.cshtml";
+}
+
+<style>
+    .form-control {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+</style>
+<link href="~/css/GetAllReviews.css" rel="stylesheet" />
+
+@if (SignInManager.IsSignedIn(User))
+{
+    if (User.Identity.Name != Model.Users.Email)
+    {
+        <div id="colorlib-main">
+            <section class="ftco-section contact-section">
+                <div class="container">
+                    <div class="row block-9" style="text-align:center">
+                        <h1>You Tried to Access page not found </h1>
+                        <h2>if you entered agian you will be blocked </h2>
+                    </div>
+                </div>
+            </section>
+        </div>
+    }
+    else
+    {
+<div id="colorlib-main">
+    <section class="home-slider js-fullheight owl-carousel" id="AboutSEC">
+        <div class="slider-item js-fullheight" style="background-image: url(/Images/bg_2.jpg);">
+            <div class="overlay"></div>
+            <div class="container-fluid">
+                <div class="row no-gutters slider-text slider-text-2 js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+                    <div class="col-md-10 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                        <a href="~/Designers/EditDesi/@Model.ID" class="btn btn-danger" style="font-size:20px">Edit Your Personal Informations</a>
+                        <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">@Model.Name</h1>
+                        <p class="mb-4" style="color:#b30202;font-size:larger;font-weight:bold;"> <span><i class="icon-star"></i></span>@Model.Rate / <span><i class="icon-user"></i></span> @Model.Reviews.Count() User </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-item js-fullheight" style="background-image:url(/Images/bg_3.jpg);">
+            <div class="overlay"></div>
+            <div class="container-fluid">
+                <div class="row no-gutters slider-text slider-text-2 js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+                    <div class="col-md-10 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                        <a href="~/Designers/EditDesi/@Model.ID" class="btn btn-danger" style="font-size:20px">Edit Your Personal Informations</a>
+                        <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Explore and travel</h1>
+                        <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Find great places to stay, eat, shop, or visit from local experts</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-section-2" id="GallerySEC">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:100px;">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <a href="~/Designers/CreateNewInvitation/@Model.ID" class="btn btn-danger" style="font-size:20px">Add new Invitation</a>
+                <h2 class="mb-4">Alubms</h2>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+                <h3>Press on invitation Phoho To Request it</h3>
+            </div>
+        </div>
+        <div class="photograhy">
+            <div class="row no-gutters">
+                @{
+
+                    @foreach (var item in Model.Invitations)
+                    {
+                        <div class="col-md-3">
+                            <a href="javascript:void(0);" id="ShowPopupModal" data-toggle="modal" class="photography-entry img d-flex justify-content-center align-items-center edit" style="background-image: url(@item.Img.Img_Path);">
+                                <div class="overlay"></div>
+                                <div class="text text-center">
+                                    <h3>@item.Inv_Price $ / Piece </h3>
+                                    <span>@item.Inv_Title</span>
+                                    <span></span>
+                                </div>
+                            </a>
+                            <input type="hidden" name="Inv_Id" id="Inv_Id" class="id" value="@item.Inv_Id" />
+                        </div>
+
+                    }
+
+                }
+
+            </div>
+        </div>
+    </section>
+
+    <!----------------------------------------------------------popup Section Hidden------------------------------------------------------>
+    <div class="modal fade" tabindex="-1" id="myModal" data-keyboard="false" data-backdrop="static" style="z-index:2000">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <form method="post" asp-controller="Designers" asp-action="Update">
+                    <input type="hidden" name="Inv_Id" id="Inv_Id" />
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Post a Request</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input class="form-control" min="1" placeholder="Price" required="required" name="Inv_Price" id="Inv_Price" />
+                        </div>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input class="form-control" min="1" placeholder="Title" required="required" name="Inv_Title" id="Inv_Title" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------End popup Section Hidden---------------------------------------------------------------------->
+
+    <section class="ftco-section-2" id="OfferSEC">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:100px;">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">Offers</h2>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-5 pb-2">
+            <p>@Model.Offers</p>
+        </div>
+    </section>
+
+    <section class="ftco-section-2" id="ReviewSEC">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:100px;">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">Review</h2>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-section-2" id="ReviewSEC">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:50px;">
+            <div class="col-md-12">
+                <div class="blog-comment">
+                    <h4>All Reviews</h4>
+                    <hr />
+                    <ul class="comments">
+                        @{
+                            @foreach (var item in Model.Reviews)
+                            {
+
+                                <li class="clearfix">
+                                    <img src="@item.ReviewedMember.ImagePath" class="avatar" alt="">
+                                    <div class="post-comments">
+                                        <p class="meta">@item.ReviewDate.Day/@item.ReviewDate.Month/@item.ReviewDate.Year <a href="#"> </a> @item.ReviewedMember.Name  says: <i class="pull-right" style="margin-right:100px"><a href="#"><small>Rate: @item.Avg() </small></a></i></p>
+                                        <p>
+                                            @item.ReviewMessage
+                                        </p>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+                                }
+                            }       
+
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#btnShowModal").click(function () {
+                $("#ModalCreate").modal('show');
+            });
+
+            $(".delete").click(function () {
+                $("#deletePhotographerModal").modal('show');
+            });
+
+            $(".edit").click(function () {
+                //debugger;
+                $("#myModal").modal('show');
+            });
+
+            $('table .delete').on('click', function () {
+                var id = $(this).parent().find('.id').val();
+                $("#deletePhotographerModal #idhh").val(id);
+            });
+
+            $('.edit').on('click', function () {
+                //debugger;
+                var id = $(this).parent().find('.id').val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/Designers/find/' + id,
+                    success: function (invitation) {
+                        //debugger;
+                        $('#myModal #Inv_Id').val(invitation.Inv_Id);
+                        $('#myModal #Inv_Title').val(invitation.Inv_Title);
+                        $('#myModal #Inv_Price').val(invitation.Inv_Price);
+                    }
+                });
+            });
+        });
+    </script>
+}

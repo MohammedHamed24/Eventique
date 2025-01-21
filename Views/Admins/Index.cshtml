@@ -1,0 +1,529 @@
+﻿@model IEnumerable<Eventique.Models.Admin>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!-- Content -->
+<div class="content">
+    <!-- Animated -->
+    <div class="animated fadeIn">
+        <!-- Widgets  -->
+        <div class="row">
+            <div class="col-lg-4 col-md-6" >
+                <div class="card">
+                    <div class="card-body">
+                        <div class="stat-widget-five">
+                            <div class="stat-icon dib flat-color-1">
+                                <i class="pe-7s-cash"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="text-left dib">
+
+                                    @ViewBag.allmember
+                                    <div class="stat-heading">Members</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="stat-widget-five">
+                            <div class="stat-icon dib flat-color-3">
+                                <i class="pe-7s-browser"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="text-left dib">
+                                    @ViewBag.allimage
+                                    <div class="stat-heading">ImagesCount</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="stat-widget-five">
+                            <div class="stat-icon dib flat-color-4">
+                                <i class="pe-7s-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="text-left dib">
+                                    @ViewBag.usercount
+                                    <div class="stat-heading">Users</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Photographer Traffic </h4>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card-body">
+                        <!-- <canvas id="TrafficChart"></canvas>   -->
+                        <div style="min-height: 335px ;width:600px ;margin-right:80px" id="traffic-chart" class="traffic-chart"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4" style="width:400px">
+                    <div class="card-body">
+                        <div class="progress-box progress-1">
+                            <h4 class="por-title">Visits your website</h4>
+                            <div class="por-txt">@ViewBag.usercount</div>
+                            <div class="progress mb-2" style="height: 5px;">
+                                <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 40%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="progress-box progress-2">
+                            <h4 class="por-title">Desinger</h4>
+                            <div class="por-txt">@ViewBag.designercount </div>
+                            <div class="progress mb-2" style="height: 5px;">
+                                <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="progress-box progress-2">
+                            <h4 class="por-title">Photographer</h4>
+                            <div class="por-txt">@ViewBag.photographercount </div>
+                            <div class="progress mb-2" style="height: 5px;">
+                                <div class="progress-bar bg-flat-color-3" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="progress-box progress-2">
+                            <h4 class="por-title">members </h4>
+                            <div class="por-txt">@ViewBag.allmember </div>
+                            <div class="progress mb-2" style="height: 5px;">
+                                <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div> <!-- /.card-body -->
+                </div>
+            </div> <!-- /.row -->
+            <div class="card-body"></div>
+        </div>
+    </div><!-- /# column -->
+</div>
+
+<!--  /Traffic -->
+<div class="clearfix"></div>
+<!-- Orders -->
+<div class="orders">
+    <div class="row">
+        <div class="col-xl-8" style="width:500px">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="box-title"> </h4>
+                    <input type="button" id="btnShowModal" value="Add New " class="btn btn-primary" />
+                </div>
+                <div class="card-body--">
+                    <div class="table-stats order-table ov-h">
+                        <table class="table" id="tablephoto">
+                            <thead>
+                                <tr>
+
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.ID</td>
+                                        <td>@item.Name</td>
+
+                                        <td>
+                                            <a href="" onclick="getAdmin('@item.ID')" id="showeditPhotographerModal" class="edit" data-toggle="modal">
+                                                Edit
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="" onclick="deleteAdmin('@item.ID')" id="showdeletePhotographerModal" class="delete" data-toggle="modal">
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div> <!-- /.table-stats -->
+                </div>
+            </div> <!-- /.card -->
+        </div>  <!-- /.col-lg-8 -->
+
+        <div class="col-xl-4">
+            <div class="row">
+                <div class="col-lg-6 col-xl-12" style="width:370px">
+                    <div class="card br-0">
+                        <div class="card-body">
+                            <div class="chart-container ov-h">
+                                <div id="flotPie1" class="float-chart"></div>
+                            </div>
+                        </div>
+                    </div><!-- /.card -->
+                </div>
+
+                <div class="col-lg-6 col-xl-12" style="width:370px">
+                    <h3></h3>
+                    <div class="card bg-flat-color-3  ">
+                        <div class="card-body">
+                            <h4 class="card-title m-0  white-color ">August 2018</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="flotLine5" class="flot-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12 col-md-12">
+    <div class="card ov-h">
+        <div class="card-body bg-flat-color-2">
+            <div id="flotBarChart" class="float-chart ml-4 mr-4"></div>
+        </div>
+        <div id="cellPaiChart" class="float-chart"></div>
+    </div>
+</div>
+
+
+@*///////////////////////////MOdel/////////////////*@
+
+<div class="modal fade" tabindex="-1" id="ModalCreate" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" asp-controller="Admins" asp-action="AddAdmin">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add admin</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @*<div class="form-group">
+                            <input class="form-control" type="text" placeholder="ID" required="required" name="Name" />
+                        </div>*@
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Name"
+                               type="text" required="required" name="Name" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Save" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="ModalUpdate" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" asp-controller="Admins" asp-action="UpdateAdmin">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Admin</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="ID" placeholder="ID" id="IDadmin" required="required" readonly />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Name"
+                               type="text" id="Nameadmin" required="required" name="Name" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Save" />
+                    <input type="hidden" name="Name" id="ID" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deletePhotographerModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-controller="Admins" asp-action="RemoveAdmin">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete admin</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure want to delete this records?</p>
+                    <p class="text-warning"><small>this Action cannot be undone</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="cancel" />
+                    <input type="hidden" id="ID" name="ID" />
+                    <input type="submit" class="btn btn-danger" value="Delete" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+@section script{
+    <script>
+        jQuery(document).ready(function ($) {
+            "use strict";
+
+            // Pie chart flotPie1
+            var piedata = [
+                { label: "Visitor", data: [[1, 32]], color: '#5c6bc0' },
+                { label: "Photograoher", data: [[1, 33]], color: '#ef5350' },
+                { label: "Desingner", data: [[1, 35]], color: '#66bb6a' }
+            ];
+
+            $.plot('#flotPie1', piedata, {
+                series: {
+                    pie: {
+                        show: true,
+                        radius: 1,
+                        innerRadius: 0.65,
+                        label: {
+                            show: true,
+                            radius: 2 / 3,
+                            threshold: 1
+                        },
+                        stroke: {
+                            width: 0
+                        }
+                    }
+                },
+                grid: {
+                    hoverable: true,
+                    clickable: true
+                }
+            });
+            // Pie chart flotPie1  End
+            // cellPaiChart
+            var cellPaiChart = [
+                { label: "visiter", data: [[1, 65]], color: '#5b83de' },
+                { label: "admin", data: [[1, 35]], color: '#00bfa5' }
+            ];
+            $.plot('#cellPaiChart', cellPaiChart, {
+                series: {
+                    pie: {
+                        show: true,
+                        stroke: {
+                            width: 0
+                        }
+                    }
+                },
+                legend: {
+                    show: false
+                }, grid: {
+                    hoverable: true,
+                    clickable: true
+                }
+
+            });
+            // cellPaiChart End
+            // Line Chart  #flotLine5
+            var newCust = [[0, 3], [1, 5], [2, 4], [3, 7], [4, 9], [5, 3], [6, 6], [7, 4], [8, 10]];
+
+            var plot = $.plot($('#flotLine5'), [{
+                data: newCust,
+                label: 'New Data Flow',
+                color: '#fff'
+            }],
+                {
+                    series: {
+                        lines: {
+                            show: true,
+                            lineColor: '#fff',
+                            lineWidth: 2
+                        },
+                        points: {
+                            show: true,
+                            fill: true,
+                            fillColor: "#ffffff",
+                            symbol: "circle",
+                            radius: 3
+                        },
+                        shadowSize: 0
+                    },
+                    points: {
+                        show: true,
+                    },
+                    legend: {
+                        show: false
+                    },
+                    grid: {
+                        show: false
+                    }
+                });
+            // Line Chart  #flotLine5 End
+            // Traffic Chart using chartist
+            if ($('#traffic-chart').length) {
+                var chart = new Chartist.Line('#traffic-chart', {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    series: [
+                        [0, 18000, 35000, 25000, 22000, 0],
+                        [0, 33000, 15000, 20000, 15000, 300],
+                        [0, 15000, 28000, 15000, 30000, 5000]
+                    ]
+                }, {
+                    low: 0,
+                    showArea: true,
+                    showLine: false,
+                    showPoint: false,
+                    fullWidth: true,
+                    axisX: {
+                        showGrid: true
+                    }
+                });
+
+                chart.on('draw', function (data) {
+                    if (data.type === 'line' || data.type === 'area') {
+                        data.element.animate({
+                            d: {
+                                begin: 2000 * data.index,
+                                dur: 2000,
+                                from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+                                to: data.path.clone().stringify(),
+                                easing: Chartist.Svg.Easing.easeOutQuint
+                            }
+                        });
+                    }
+                });
+            }
+            // Traffic Chart using chartist End
+            //Traffic chart chart-js
+            if ($('#TrafficChart').length) {
+                var ctx = document.getElementById("TrafficChart");
+                ctx.height = 150;
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                        datasets: [
+                            {
+                                label: "Visit",
+                                borderColor: "rgba(4, 73, 203,.09)",
+                                borderWidth: "1",
+                                backgroundColor: "rgba(4, 73, 203,.5)",
+                                data: [0, 2900, 5000, 3300, 6000, 3250, 0]
+                            },
+                            {
+                                label: "Bounce",
+                                borderColor: "rgba(245, 23, 66, 0.9)",
+                                borderWidth: "1",
+                                backgroundColor: "rgba(245, 23, 66,.5)",
+                                pointHighlightStroke: "rgba(245, 23, 66,.5)",
+                                data: [0, 4200, 4500, 1600, 4200, 1500, 4000]
+                            },
+                            {
+                                label: "Targeted",
+                                borderColor: "rgba(40, 169, 46, 0.9)",
+                                borderWidth: "1",
+                                backgroundColor: "rgba(40, 169, 46, .5)",
+                                pointHighlightStroke: "rgba(40, 169, 46,.5)",
+                                data: [1000, 5200, 3600, 2600, 4200, 5300, 0]
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        tooltips: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        hover: {
+                            mode: 'nearest',
+                            intersect: true
+                        }
+
+                    }
+                });
+            }
+            //Traffic chart chart-js  End
+            // Bar Chart #flotBarChart
+            $.plot("#flotBarChart", [{
+                data: [[0, 18], [2, 8], [4, 5], [6, 13], [8, 5], [10, 7], [12, 4], [14, 6], [16, 15], [18, 9], [20, 17], [22, 7], [24, 4], [26, 9], [28, 11]],
+                bars: {
+                    show: true,
+                    lineWidth: 0,
+                    fillColor: '#ffffff8a'
+                }
+            }], {
+                grid: {
+                    show: false
+                }
+            });
+            // Bar Chart #flotBarChart End
+        });
+    </script>
+
+}
+
+@section script3{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#btnShowModal").click(function () {
+                $("#ModalCreate").modal('show');
+            });
+
+            getAdmin = function (id) {
+                $.ajax({
+                    type: 'get',
+                    url: '/admin/findadmin/' + id,
+                    success: function (admin) {
+                        $("#ModalUpdate").modal('show');
+                        $('#ModalUpdate #IDadmin').val(admin.id);
+                        $('#ModalUpdate #Nameadmin').val(admin.name);
+                    }
+                });
+            }
+
+            deleteAdmin = function (id) {
+
+                $("#deletePhotographerModal").modal('show');
+                $('#deletePhotographerModal #ID').val(id);
+            }
+
+        });
+    </script>
+}
+
+
+
+

@@ -1,0 +1,143 @@
+﻿@model List<Image>
+@{
+    ViewData["Title"] = "PhoView";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+<section class="best-photographers-sec container-fluid">
+    <header style="margin-bottom: 100px;">
+        <div class="best-photographer">
+            <div class="img-container">
+                <img alt="photographer" title="photographer" src="../Images/pic20.jpg" style="width: 20%;" />
+                <p style="font-size: 50px; font-weight: bold;color: black;">Sherif Henry</p>
+                <P style="background-color:#b30202; display: inline-block; font-size: 15px; color: white; letter-spacing: 25px;">
+                    photography
+                </P>
+                <div>
+                    <span class="fa fa-star checked" style="font-size: 30px;"></span>
+                    <span class="fa fa-star checked" style="font-size: 30px;"></span>
+                    <span class="fa fa-star checked" style="font-size: 30px;"></span>
+                    <span class="fa fa-star checked" style="font-size: 30px;"></span>
+                    <span class="fa fa-star not-checked" style="font-size: 30px;"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+<!-- --------------------------------------------------------------------------- -->
+<section class="Descreption-sec">
+    <header style="margin-bottom: 100px;">
+        <h1 style="font-weight: bold; text-align: center;">ABOUT ME</h1>
+    </header>
+    <p>
+        dfgdgdngm  kdnfg jk fkg  dh kjdkj hdkjg dkjdslkjhk sdkj kj jk 
+        kj gdjk h dfh kjdh  fdgdj hg
+    </p>
+</section>
+<!-- --------------------------------------------------------------------------- -->
+<section class="Album-sec">
+    <header style="margin-bottom: 100px;">
+        <h1 style="font-weight: bold; text-align: center;color: white;">ALBUMS</h1>
+    </header>
+
+    <!-- Images used to open the lightbox -->
+    <div class="container-fluid">
+        <div class="row" style="margin-left: auto; margin-right: auto; text-align: center;">
+            @{
+                int j = 0;
+                foreach (var item in ViewData["ListAlbum"] as List<Album>)
+                {
+                    <div class="col-sm-4 imgShow">
+                        <img src="@item.MyProperty[j].Img_Path" onclick="openModal('myModal'+' '+@j , 'mySlides'+' '+@j);currentSlide(1)"
+                             class="hover-shadow" style="width: 100%;height: 300px;">
+                        <div class="overlay">@item.Al_Title</div>
+                        <span onclick="Like(this)" id="Like" class="fa fa-heart"
+                              style="color: white; font-size: 30px;margin-top: 20px;"> 0</span>
+                    </div>
+                    j++; 
+                }
+
+            }
+            <form id=formId action="" method="GET">
+                <div class="form-group" style="margin-top: 50px;">
+                    <label for="rate"></label>
+                    <input type="number" style="display: inline-block;" class="form-control" name="rate" id="rate"
+                           aria-describedby="helpId" placeholder="Enter Rate Out to 5">
+                    <button type="submit" name="" id="" class="btn btn-dark"
+                            style="display: inline-block; text-align: center;margin-left: auto; margin-right: auto; font-size: 20px;">
+                        Rate
+                        me
+                    </button>
+                </div>
+            </form>
+
+
+            <!-- TODO: This is for server side, there is another version for browser defaults -->
+        </div>
+
+        <!-- The Modal/Lightbox -->
+        @{
+            int i = 0;
+            foreach (var item in ViewData["ListAlbum"] as List<Album>)
+            {
+                <div id="myModal @i" class="modal">
+                    <span class="close cursor" onclick="closeModal('myModal'+' '+ @i)">&times;</span>
+                    <div class="modal-content">
+
+                        @{
+                            for (int x = 0; x < item.MyProperty.Count(); x++)
+                            {
+                                <div class="mySlides @i">
+                                    <div class="numbertext"> @x / @item.MyProperty.Count()</div>
+                                    <img src="@item.MyProperty[x].Img_Path" style="width:100%">
+                                </div>
+                            }
+                        }
+
+                        <!-- Next/previous controls -->
+                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                        <!-- Caption text -->
+                        <div class="caption-container">
+                            <p id="caption"></p>
+                        </div>
+                        <!-- Thumbnail image controls -->
+                        <div class="column" style="display:inline-block">
+                            <img class="demo" src="../Images/pic02.jpg" onclick="currentSlide(1)" alt="Nature"
+                                 style="width: 50%;height: 50%;">
+                        </div>
+
+                    </div>
+                </div>
+                           i++;
+                            }
+        }
+        </div>
+</section>
+
+<!-- ----------------------------------------------------------------------------------- -->
+<section class="container">
+    <form id=formId action="" method="GET">
+        <div class="form-group" style="margin-top: 50px;">
+            <div class="form-group">
+                <label for="msg"></label>
+                <textarea class="form-control" name="msg" id="msg" rows="3"
+                          placeholder="Enter your message here"></textarea>
+            </div>
+            <div class="form-group">
+                <label for=""></label>
+                <input type="date" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                <small id="helpId" class="form-text text-muted">Enter the date you want to book</small>
+            </div>
+            <button type="submit" name="" id="" class="btn btn-danger"
+                    style="display: inline-block; text-align: center;margin-left: auto; margin-right: auto; font-size: 20px;">
+                Book
+                now
+            </button>
+        </div>
+    </form>
+</section>
+
+
+

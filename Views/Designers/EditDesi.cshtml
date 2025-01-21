@@ -1,0 +1,107 @@
+﻿@model Eventique.Models.Designer
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "EditDesi";
+    Layout = "~/Views/Shared/_BackViewLayout.cshtml";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/Calendar/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    if (User.Identity.Name != Model.Users.Email)
+    {
+        <div id="colorlib-main">
+            <section class="ftco-section contact-section">
+                <div class="container">
+                    <div class="row block-9" style="text-align:center">
+                        <h1>You Tried to Access page not found </h1>
+                        <h2>if you entered agian you will be blocked </h2>
+                    </div>
+                </div>
+             </section>
+        </div>
+    }
+    else
+    {
+    <div id="colorlib-main">
+        <section class="ftco-section contact-section">
+            <div class="container">
+                <div class="row block-9">
+                    <div class="col-md-12 order-md-last pr-md-5">
+                        <form class="wrap-form-reservation size22 m-l-r-auto" method="post" enctype="multipart/form-data" asp-controller="Designers" asp-action="EditDesi">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="ID" />
+                            <div class="form-group">
+                                <!-- Name -->
+                                <label asp-for="Name">Name</label>
+                                <input asp-for="Name" class="form-control" placeholder="Name">
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <!-- Shop Name -->
+                                <label asp-for="ShopName">Your Shop Name</label>
+                                <input asp-for="ShopName" class="form-control" placeholder="Name">
+                                <span asp-validation-for="ShopName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <!-- Phone Number -->
+                                <label asp-for="Users.PhoneNumber"></label>
+                                <input asp-for="Users.PhoneNumber" class="form-control" placeholder="PhoneNumber">
+                                <span asp-validation-for="Users.PhoneNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <!-- Address -->
+                                <label asp-for="Address" class="txt9">enter your Address</label>
+                                <input asp-for="Address" class="form-control" placeholder="Adress">
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <!-- ImgPath -->
+                                <label asp-for="Designer_ImgPath" class="txt9">your Image Path </label>
+                                <input asp-for="Designer_ImgPath" class="form-control" placeholder="your Image Path ">
+                                <span asp-validation-for="Designer_ImgPath" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ImageFilePath" class="txt9"></label>
+                                <input type="file" asp-for="ImageFilePath" class="bo-rad-10 sizefull txt10 p-l-20" />
+                                <span asp-validation-for="ImageFilePath" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <!-- Message -->
+                                <label asp-for="Offers">Enter your Offer Description</label>
+                                <textarea asp-for="Offers" class="form-control" placeholder="Enter your Offer Description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <!-- Message -->
+                                <a asp-controller="Designers" asp-action="ChangePassword">
+                                    <button type="button" class="btn btn-danger">
+                                        Chang password
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Edit" class="btn btn-primary py-3 px-5">
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    }
+    }
+
+@section Scripts{
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js'></script>
+    <script src="~/Calendar/script.js"></script>
+}

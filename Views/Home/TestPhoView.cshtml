@@ -1,0 +1,316 @@
+﻿@model Photographer
+@{
+    ViewData["Title"] = Model.Ph_Name;
+    Layout = "~/Views/Shared/_phoViewLayout.cshtml";
+}
+
+@section Styles{
+
+    <link href="~/css/GetAllReviews.css" rel="stylesheet" />
+}
+<div id="colorlib-main">
+    <div class="hero-wrap js-fullheight" id="AboutSEC" style="background-image: url(/Images/bg_1.jpg);" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="js-fullheight d-flex justify-content-center align-items-center">
+            <div class="col-md-8 text text-center">
+                <div class="img mb-4" style="background-image: url(@Model.ImagePath);"></div>
+                <div class="desc">
+                    <h2 class="subheading">Hello I'm</h2>
+                    <h1 class="mb-4">@Model.Ph_Name</h1>
+                    <p class="mb-4" style="color:#b30202;font-size:larger;font-weight:bold;"> <span><i class="icon-star"></i></span>@Model.Rate / <span><i class="icon-user"></i></span> @Model.Ph_Reviews.Count() User </p>
+                    <p class="mb-4">@Model.Description</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="ftco-section" id="GallerySEC">
+        <div class="container">
+            <div class="row justify-content-center mb-5 pb-2">
+                <div class="col-md-7 heading-section text-center ftco-animate">
+                    <h2 class="mb-4">Alubms</h2>
+                </div>
+            </div>
+            <div class="row">
+                @{
+                    @if (Model.ListAlbum != null)
+                    {
+                        int j = 0;
+                        foreach (var item in Model.ListAlbum)
+                        {
+                            <div class="col-md-4">
+                                <div class="blog-entry ftco-animate">
+                                    <div src="#" class="img" style="background-image: url(@item.MyProperty[j].Img_Path);" onclick="openModal('myModal'+' '+@j , 'mySlides'+' '+@j);currentSlide(1)"></div>
+                                    <div class="text text-2 pt-2 mt-3">
+                                        <span class="category mb-3 d-block"><a href="#">Technology</a></span>
+                                        <h3 class="mb-4"><a href="#">@item.Al_Title</a></h3>
+                                        <p class="mb-4">Even the all-powerful Pointing has no control about the blind texts it is an almost</p>
+                                        <div class="meta-wrap align-items-center">
+                                            <div class="half order-md-last">
+                                                <p class="meta">
+                                                    <span><i class="icon-heart"></i>3</span>
+                                                    <span><i class="icon-eye"></i>100</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            j++;
+                        }
+                    }
+    
+                }
+            </div>
+            <!------------------------ The Modal/Lightbox ------------------------------>
+            @{
+                int i = 0;
+                if (Model.ListAlbum != null)
+                {
+
+
+                    foreach (var item in Model.ListAlbum)
+                    {
+                        <div id="myModal @i" class="modal" style="z-index=2000">
+                            <span class="close cursor" onclick="closeModal('myModal'+' '+ @i)">&times;</span>
+                            <div class="modal-content">
+
+                                @{
+                                    for (int x = 0; x < item.MyProperty.Count(); x++)
+                                    {
+                                        <div class="mySlides @i">
+                                            <div class="numbertext"> @x / @item.MyProperty.Count()</div>
+                                            <img src="@item.MyProperty[x].Img_Path" style="width:100%">
+                                        </div>
+                                    }
+                                }
+
+                                <!-- Next/previous controls -->
+                                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                                <!-- Caption text -->
+                                <div class="caption-container">
+                                    <p id="caption"></p>
+                                </div>
+                                <!-- Thumbnail image controls -->
+                                <div class="column" style="display:inline-block">
+                                    <img class="demo" src="../Images/pic02.jpg" onclick="currentSlide(1)" alt="Nature"
+                                         style="width: 50%;height: 50%;">
+                                </div>
+
+                            </div>
+                        </div>
+                        i++;
+                    }
+                }
+            }
+        </div>
+    </section>
+    <!----------------------------------------The Modal/Lightbox--------------------------------------------------->
+    <section class="ftco-section-2" id="OfferSEC">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:100px;">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">Offers</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Offer Title</th>
+                            <th>More Detail</th>
+                            <th>Cost</th>
+                            <th>Date End</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model.OffersList.Count() != 0)
+                            {
+                                foreach (var item in Model.OffersList)
+                                {
+                                    <tr>
+                                        <td>@item.OfferTitle</td>
+                                        <td>@item.OfferDetails</td>
+                                        <td>@item.OffersPrice</td>
+                                        <td>@item.OfferEndDate</td>
+                                    </tr>
+                                }
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-5 pb-2">
+        </div>
+    </section>
+    <section class="ftco-section-2">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:50px;">
+            <div class="col-md-12">
+                <div class="blog-comment">
+                    <h4>All Reviews</h4>
+                    <hr />
+                    <ul class="comments">
+                        @{
+                            @foreach (var item in Model.Ph_Reviews)
+                            {
+
+                                <li class="clearfix">
+                                    <img src="@item.ReviewedMember.ImagePath" class="avatar" alt="">
+                                    <div class="post-comments">
+                                        <p class="meta">@item.ReviewDate.Day/@item.ReviewDate.Month/@item.ReviewDate.Year <a href="#">@item.ReviewedMember.Name </a>   says : <i class="pull-right" style="margin-right:100px"><a href="#"><small>Rarte : @item.Avg()</small></a></i></p>
+                                        <p>
+                                            @item.ReviewMessage
+                                        </p>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section-2" id="ReviewSEC">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:100px;">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">Review</h2>
+              
+            </div>
+        </div>
+        <form method="post" action="~/Home/PostReview/@Model.Ph_Id" enctype="multipart/form-data">
+            <div class="form-group row justify-content-center">
+                <input type="number" min="1" max="5" id="Quality" class="form-control col-md-4" placeholder="Quality" name="Quality">
+            </div>
+            <div class="form-group row justify-content-center">
+                <input type="number" min="1" max="5" id="TimeManagement" class="form-control col-md-4" placeholder="Time Commitment" name="TimeManagement">
+            </div>
+            <div class="form-group row justify-content-center">
+                <input type="number" min="1" max="5" id="DeleverTime" class="form-control col-md-4" placeholder="Deliver Commitmnent" name="DeleverTime">
+            </div>
+            <div class="form-group row justify-content-center">
+                <textarea name="ReviewMessage" id="ReviewMessage" cols="15" rows="4" class="form-control col-md-4" placeholder="Comment"></textarea>
+            </div>
+            <div class="form-group row justify-content-center">
+                <input type="submit" value="Post Your Review" class="btn btn-primary py-3 px-5" onclick="CreateComment()">
+            </div>
+        </form>
+
+    </section>
+
+    <section class="ftco-section contact-section" id="ContactSEC">
+        <div class="container">
+            <div class="row d-flex mb-5 contact-info">
+                <div class="col-md-12 mb-4">
+                    <h2 class="h4 font-weight-bold">Contact Information</h2>
+                </div>
+                <div class="w-100"></div>
+                <div class="col-md-3">
+                    <p><span>Address:</span>@Model.Ph_Address</p>
+                </div>
+                <div class="col-md-3">
+                    <p><span>Phone:</span> <a href="#">@Model.Ph_PhoneNumber</a></p>
+                </div>
+                <div class="col-md-3">
+                    <p><span>Email:</span> <a href="#">@Model.Ph_Name</a></p>
+                </div>
+                <div class="col-md-3">
+                    <p><span>Website</span> <a href="#">yoursite.com</a></p>
+                </div>
+            </div>
+            <div class="row block-9">
+                <div class="col-md-6 order-md-last pr-md-5">
+                    <form method="post" action="~/Home/PhoRequest/@Model.Ph_Id" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="Date">Enter your date</label>
+                            <input type='text' class="form-control" id='txtDateAvailable' name="Date" onmousedown="myFun('@Model.TestDate')" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Date">Enter your Offer Title</label>
+                            <select id="Offer" name="Offer" class="form-control">
+                                @{
+                                    if (Model.OffersList.Count() != 0)
+                                    {
+                                        foreach (var item in Model.OffersList)
+                                        {
+                                            <option>@item.OfferTitle</option>
+                                        }
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="Message" id="Message" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Send Request" class="btn btn-primary py-3 px-5">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-6">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts{
+@*<script type="text/javascript">
+    $(document).ready(function CreateComment() {
+        debugger;
+        var Quality =  $("#Quality").val();
+        var Time = $("#TimeManagement").val();
+        var Deliver = $("#DeleverTime").val();
+        var comment = $("ReviewMessage").val();
+        $.ajax({
+            type: "Post",
+            url: "/Home/PostReview/@Model.Ph_Id",
+            data: '{Quality:"' + Quality + '",TimeManagement:"' + Time + '",DeleverTime:"' + Deliver + '",ReviewMessage:"' + comment + '"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+                window.location.reload();
+            }
+        });
+    });
+</script>*@
+
+    <script>
+        var availableDates;
+        function myFun(list) {
+            availableDates = list.split(',');
+            $('#txtDateAvailable').datepicker({
+                beforeShowDay:
+                    function (dt) {
+                        return [available(dt), ""];
+                    }
+                , changeMonth: true, changeYear: false
+            });
+        }
+
+        function available(date) {
+            dmy = date.getDate() + "/0" + (date.getMonth() + 1) + "/" + date.getFullYear();
+            var li = dmy.split('/');
+            if (li[0].length == 1) {
+                dmy = `0${li[0]}/${li[1]}/${li[2]}`;
+            }
+            //11-05-2020
+            else {
+                //11-05-2020
+                dmy = date.getDate() + "/0" + (date.getMonth() + 1) + "/" + date.getFullYear();
+            }
+            if ($.inArray(dmy, availableDates) != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+    </script>
+    <script type="text/javascript" src="~/js/jqueryui/jquery-ui.min.js"></script>
+}

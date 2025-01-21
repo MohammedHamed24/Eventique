@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<header>
+    <div class="top-menu">
+        <partial name="_LoginPartial" />
+        <div class="right-area">
+
+            <div class="src-area">
+                <form action="post">
+                    <input class="src-input" type="text" placeholder="Search">
+                    <button class="src-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
+                </form>
+            </div><!-- src-area -->
+
+            <ul class="social-icons">
+                <li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+                <li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+                <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+                <li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+                <li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+            </ul><!-- right-area -->
+
+        </div><!-- right-area -->
+
+    </div><!-- top-menu -->
+    <div class="bottom-area">
+
+        <div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
+        <ul class="main-menu visible-on-click" id="main-menu">
+            <li><a asp-controller="Home" asp-action="TestView">Home</a></li>
+            <li><a asp-controller="Home" asp-action="AllPhotographers">Photographers</a></li>
+            <li><a asp-controller="Home" asp-action="AllWeddingHalls">Wedding Halls</a></li>
+            <li><a asp-controller="Home" asp-action="AllDesigners">Designer Shop</a></li>
+            <li><a href="#">CONTACT</a></li>
+            <li id="notification_li">
+                <span id="notification_count">3</span>
+                <a asp-controller="Home" asp-action="MyDeals" id="notificationLink"><i class="fa fa-handshake-o" style="color:black !important;font-size:35px"></i></a>
+                <div id="notificationContainer">
+                    <div id="notificationTitle">Notifications</div>
+                    <div id="notificationsBody" class="notifications">
+                    </div>
+                    <div id="notificationFooter"><a href="#">See All</a></div>
+                </div>
+            </li>
+        </ul><!-- main-menu -->
+    </div><!-- conatiner -->
+</header>

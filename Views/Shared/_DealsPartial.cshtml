@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject RoleManager<IdentityRole> roleManager
+
+
+
+@{
+    var user = new IdentityUser();
+    user = await UserManager.FindByEmailAsync(User.Identity.Name);
+    IList<string> role = await UserManager.GetRolesAsync(user);
+    if (role.Contains("Photographer"))
+    {
+        <li class="test"><a asp-controller="Photographers" asp-action="Deals">My Deals</a></li>
+    }
+    else if (role.Contains("Designer"))
+    {
+        <li class="test"><a asp-controller="Designers" asp-action="Deals">My Deals</a></li>
+    }
+    else if (role.Contains("WeddingHall"))
+    {
+        <li class="test"><a asp-controller="WeddingHalls" asp-action="Deals">My Deals</a></li>
+    }
+}
+

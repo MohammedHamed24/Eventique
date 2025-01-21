@@ -1,0 +1,108 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100" style="width: 500px !important">
+            <form class="login100-form validate-form" id="account" method="post">
+                <span class="login100-form-title p-b-48">
+                    <img src="~/Images/LogoE.png" style="width:50%"  />
+                </span>
+
+                <div class="wrap-input100 validate-input" data-validate="Valid Email is: a@b.c">
+                    <input class="input100" type="email" asp-for="Input.Email">
+                    <span class="focus-input100" data-placeholder="Email"></span>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="Enter password">
+                    <span class="btn-show-pass">
+                        <i class="zmdi zmdi-eye"></i>
+                    </span>
+                    <input class="input100" type="password" asp-for="Input.Password">
+                    <span class="focus-input100" data-placeholder="Password"></span>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe">
+                            <input asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="text-center p-t-115">
+                    <span class="txt1">
+                        Don’t have an account?
+                    </span>
+
+                    <a class="txt2" href="~/Identity/Account/Register">
+                        Sign Up
+                    </a>
+                    <br />
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @*<div class="col-md-6 col-md-offset-2">
+        <section>*@
+            @*<h4>Use another service to log in.</h4>
+            <hr />*@
+            @*@{
+                if (Model.ShowResend)
+                {
+                    <p>
+                        <a asp-page="./UnconfirmedEmail"
+                           asp-route-userId="@Model.UserId">Resend verification?</a>
+                    </p>
+                }
+            }*@
+            @*@{*@
+                @*if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                            for details on setting up this ASP.NET application to support logging in via external services.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+</div>*@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

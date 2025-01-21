@@ -1,0 +1,372 @@
+﻿@model Photographer
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "~/Views/Shared/_BackViewLayout.cshtml";
+}
+<link href="~/css/GetAllReviews.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/js/jqueryui/jquery-ui.min.css">
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    if (User.Identity.Name != Model.Users.Email)
+    {
+        <div id="colorlib-main">
+            <section class="ftco-section contact-section">
+                <div class="container">
+                    <div class="row block-9" style="text-align:center">
+                        <h1>You Tried to Access page not found </h1>
+                        <h2>if you entered agian you will be blocked </h2>
+                    </div>
+                </div>
+            </section>
+        </div>
+    }
+    else
+    {
+        <div id="colorlib-main">
+            <div id="AbouSec">
+                <div class="hero-wrap js-fullheight" style="background-image: url(/Images/bg_1.jpg);" data-stellar-background-ratio="0.5">
+                    <div class="overlay"></div>
+                    <div class="js-fullheight d-flex justify-content-center align-items-center">
+                        <div class="col-md-8 text text-center">
+                            <div class="img mb-4" style="background-image: url(@Model.ImagePath);"></div>
+                            <div class="desc">
+                                <h2 class="subheading">Hello I'm</h2>
+                                <h1 class="mb-4">@Model.Ph_Name</h1>
+                                <p>@Model.Description</p>
+                                <p class="mb-4" style="color:#b30202;font-size:larger;font-weight:bold;"> <span><i class="icon-star"></i></span>@Model.Rate / <span><i class="icon-user"></i></span> @Model.Ph_Reviews.Count() User </p>
+                                <a href="~/Photographers/EditPho/@Model.Ph_Id" class="btn btn-danger">Edit your Personal Infornations</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="ftco-section" id="GallerySEC">
+                <div class="container">
+                    <div class="row justify-content-center mb-5 pb-2">
+                        <div class="col-md-7 heading-section text-center ftco-animate">
+                            <a href="~/Photographers/CreateNewAlbum/@Model.Ph_Id" class="btn btn-danger">Add new Album</a>
+                            <h2 class="mb-4">Alubms</h2>
+                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @{
+                            @if (Model.ListAlbum != null)
+                            {
+                                int j = 0;
+                                foreach (var item in Model.ListAlbum)
+                                {
+                                    <div class="col-md-4">
+                                        <div class="blog-entry ftco-animate">
+                                            <div src="#" class="img" style="background-image: url(@item.MyProperty[j].Img_Path);" onclick="openModal('myModal'+' '+@j , 'mySlides'+' '+@j);currentSlide(1)"></div>
+                                            <div class="text text-2 pt-2 mt-3">
+                                                <span class="category mb-3 d-block"><a href="#">Technology</a></span>
+                                                <h3 class="mb-4"><a href="#">@item.Al_Title</a></h3>
+                                                <p class="mb-4">Even the all-powerful Pointing has no control about the blind texts it is an almost</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    j++;
+                                }
+                            }
+                        }
+                    </div>
+                    <!-- The Modal/Lightbox -->
+                    @{
+                        int i = 0;
+                        if (Model.ListAlbum != null)
+                        {
+
+
+                            foreach (var item in Model.ListAlbum)
+                            {
+                                <div id="myModal @i" class="modal">
+                                    <span class="close cursor" onclick="closeModal('myModal'+' '+ @i)">&times;</span>
+                                    <div class="modal-content">
+
+                                        @{
+                                            for (int x = 0; x < item.MyProperty.Count(); x++)
+                                            {
+                                                <div class="mySlides @i">
+                                                    <div class="numbertext"> @x / @item.MyProperty.Count()</div>
+                                                    <img src="@item.MyProperty[x].Img_Path" style="width:100%">
+                                                </div>
+                                            }
+                                        }
+
+                                        <!-- Next/previous controls -->
+                                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                                        <!-- Caption text -->
+                                        <div class="caption-container">
+                                            <p id="caption"></p>
+                                        </div>
+                                        <!-- Thumbnail image controls -->
+                                        <div class="column" style="display:inline-block">
+                                            <img class="demo" src="~@item.MyProperty[0].Img_Path" onclick="currentSlide(1)" alt="Nature"
+                                                 style="width: 50%;height: 50%;">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                i++;
+                            }
+                        }
+                    }
+                </div>
+            </section>
+            @************************************************************************************************************@
+            <div class="modal fade" tabindex="-1" id="ModalCreate" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <form method="post" enctype="multipart/form-data" asp-controller="Photographers" asp-action="AddOffer">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Desiner</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    ×
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <input type="hidden" name="Of_ID" id="Of_ID" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Offer Title"
+                                               type="text" id="OfferTitle" required="required" name="OfferTitle" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="OfferDetails"
+                                               type="text" id="OfferDetails" required="required" name="OfferDetails" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="OffersPrice"
+                                               type="number" id="OffersPrice" required="required" name="OffersPrice" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="OfferEndDate"
+                                               type="text" id="OfferEndDate" required="required" name="OfferEndDate" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="ImageFilePath"
+                                               type="file" id="ImageFilePath" name="ImageFilePath" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-success" value="Save" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            @************************************************************************************************************@
+            <section class="ftco-section-2" id="OfferSEC">
+                <div class="row justify-content-center mb-5 pb-2" style="margin-top:100px;">
+                    <div class="col-md-7 heading-section text-center ftco-animate">
+                        <input type="button" id="btnShowModal" value="Add New Offer" class="btn btn-danger" />
+                        <h2 class="mb-4">Offers</h2>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Offer Title</th>
+                                    <th>More Detail</th>
+                                    <th>Cost</th>
+                                    <th>Date End</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model.OffersList.Count() != 0)
+                                    {
+                                        foreach (var item in Model.OffersList)
+                                        {
+                                            <tr>
+                                                <td>@item.OfferTitle</td>
+                                                <td>@item.OfferDetails</td>
+                                                <td>@item.OffersPrice</td>
+                                                <td>@item.OfferEndDate</td>
+                                                <td>
+                                                    <a href="javascript:void(0);" id="showeditDesignerModal" class="edit" data-toggle="modal">
+                                                        <span><i class="icon-edit"></i></span>
+                                                    </a>
+                                                    <input type="hidden" class="id" value="@item.Of_ID" />
+                                                </td>
+                                                <td>
+                                                    <a href="javascript:void(0);" id="showdeleteDesignerModal" class="delete" data-toggle="modal">
+                                                        <span><i class="icon-remove"></i></span>
+                                                    </a>
+                                                    <input type="hidden" class="id" value="@item.Of_ID" />
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                        <p style="color:darkred">@TempData["err"]</p>
+                    </div>
+                </div>
+                @************************************************************************************************************@
+                <div class="modal fade" tabindex="-1" id="ModalUpdate" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <form method="post" enctype="multipart/form-data" asp-controller="Photographers" asp-action="UpdateOffers">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Update Offers</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        ×
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <input type="hidden" name="Of_ID" id="Of_ID" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Offer Title"
+                                               type="text" id="OfferTitle" required="required" name="OfferTitle" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="OfferDetails"
+                                               type="text" id="OfferDetails" required="required" name="OfferDetails" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="OffersPrice"
+                                               type="number" id="OffersPrice" required="required" name="OffersPrice" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="OfferEndDate"
+                                               type="text" id="OfferEndDate" required="required" name="OfferEndDate" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="OfferImgPath"
+                                               type="text" id="OfferImgPath" name="OfferImgPath" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="ImageFilePath"
+                                               type="file" id="ImageFilePath" name="ImageFilePath" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" class="btn btn-danger" value="Save" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @**************************************************************************************************************@
+                <div class="modal fade" id="ModalDelete">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="post" asp-controller="Photographers" asp-action="RemoveOffer">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Delete Offer</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        ×
+                                    </button>
+                                </div>
+                                <input type="hidden" id="Of_ID" name="Of_ID" />
+                                <div class="modal-body">
+                                    <p>Are you sure want to delete this Offer?</p>
+                                    <p class="text-warning"><small>this Action cannot be undone</small></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="cancel" />
+                                    <input type="submit" class="btn btn-danger" value="Delete" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @**********************************************************************************************************@
+
+                <div class="row justify-content-center mb-5 pb-2">
+                    <p>@Model.Ph_Offers</p>
+                </div>
+            </section>
+
+            <section class="ftco-section-2" id="ReviewSEC">
+                <div class="row justify-content-center mb-5 pb-2" style="margin-top:50px;">
+                    <div class="col-md-12">
+                        <div class="blog-comment">
+                            <h4>All Reviews</h4>
+                            <hr />
+                            <ul class="comments">
+                                @{
+                                    @foreach (var item in Model.Ph_Reviews)
+                                    {
+
+                                        <li class="clearfix">
+                                            <img src="@item.ReviewedMember.ImagePath" class="avatar" alt="">
+                                            <div class="post-comments">
+                                                <p class="meta">@item.ReviewDate.Day/@item.ReviewDate.Month/@item.ReviewDate.Year <a href="#">@item.ReviewedMember.Name </a>   says : <i class="pull-right" style="margin-right:100px"><a href="#"><small>Rate: @item.Avg() </small></a></i></p>
+                                                <p>
+                                                    @item.ReviewMessage
+                                                </p>
+                                            </div>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+    }
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnShowModal").click(function () {
+                $("#ModalCreate").modal('show');
+            });
+
+            $("#OfferEndDate").datepicker({
+                minDate: 0
+             });
+
+            $(".delete").click(function () {
+                $("#ModalDelete").modal('show');
+            });
+
+            $(".edit").click(function () {
+                $("#ModalUpdate").modal('show');
+            });
+
+            $('table .delete').on('click', function () {
+                var id = $(this).parent().find('.id').val();
+                $("#ModalDelete #Of_ID").val(id);
+            });
+
+            $('table .edit').on('click', function () {
+                var id = $(this).parent().find('.id').val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/Photographers/Find/' + id,
+                    success: function (Offers) {
+                        $('#ModalUpdate #Of_ID').val(Offers.Of_ID);
+                        $('#ModalUpdate #OfferTitle').val(Offers.OfferTitle);
+                        $('#ModalUpdate #OfferDetails').val(Offers.OfferDetails);
+                        $('#ModalUpdate #OffersPrice').val(Offers.OffersPrice);
+                        $('#ModalUpdate #OfferImgPath').val(Offers.OfferImgPath);
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript" src="~/js/jqueryui/jquery-ui.min.js"></script>
+
+}

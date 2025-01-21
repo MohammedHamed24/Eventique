@@ -1,0 +1,71 @@
+﻿@model Eventique.Models.Photographer
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Photographer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Ph_Name" class="control-label"></label>
+                <input asp-for="Ph_Name" class="form-control" />
+                <span asp-validation-for="Ph_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rate" class="control-label"></label>
+                <input asp-for="Rate" class="form-control" />
+                <span asp-validation-for="Rate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ph_Price" class="control-label"></label>
+                <input asp-for="Ph_Price" class="form-control" />
+                <span asp-validation-for="Ph_Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ph_Offers" class="control-label"></label>
+                <input asp-for="Ph_Offers" class="form-control" />
+                <span asp-validation-for="Ph_Offers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ph_Address" class="control-label"></label>
+                <input asp-for="Ph_Address" class="form-control" />
+                <span asp-validation-for="Ph_Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ph_PhoneNumber" class="control-label"></label>
+                <input asp-for="Ph_PhoneNumber" class="form-control" />
+                <span asp-validation-for="Ph_PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ph_CameraType" class="control-label"></label>
+                <input asp-for="Ph_CameraType" class="form-control" />
+                <span asp-validation-for="Ph_CameraType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePath" class="control-label"></label>
+                <input asp-for="ImagePath" class="form-control" />
+                <span asp-validation-for="ImagePath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

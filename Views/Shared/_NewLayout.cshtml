@@ -1,0 +1,271 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>Eventique</title>
+    @RenderSection("Styles", required: false)
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="~/Images/newLogo.png" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/common-css/bootstrap.css" rel="stylesheet">
+    <link href="~/css/common-css/ionicons.css" rel="stylesheet">
+    <link href="~/css/common-css/layerslider.css" rel="stylesheet">
+    <link href="~/css/01-homepage/css/styles.css" rel="stylesheet">
+    <link href="~/css/01-homepage/css/responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/notifications_css/css/style.css">
+    <style>
+        #navbar {
+            position: fixed;
+            top: -110px;
+            width: 100%;
+            display: block;
+            transition: top 0.3s;
+        }
+    </style>
+</head>
+<body class="">
+    <header id="basicNav">
+        <div class="top-menu">
+            <partial name="_LoginPartial" />
+            <div class="right-area">
+
+                <div class="src-area">
+                    <a href="~/Home/LastReco">Find our Recommendations</a>
+                    <button class="src-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
+                </div><!-- src-area -->
+                <ul class="social-icons">
+                    <li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+                    <li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+                    <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+                    <li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+                    <li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+                </ul><!-- right-area -->
+            </div><!-- right-area -->
+        </div><!-- top-menu -->
+        <div class="middle-menu center-text"><a href="#" class="logo"><img src="~/Images/newLogo.png" alt="Logo Image"></a></div>
+        <div class="bottom-area">
+            <div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
+            <ul class="main-menu visible-on-click" id="main-menu">
+                <li><a asp-controller="Home" asp-action="TestView">Home</a></li>
+                <li><a asp-controller="Home" asp-action="AllPhotographers">Photographers</a></li>
+                <li><a asp-controller="Home" asp-action="AllWeddingHalls">Wedding Halls</a></li>
+                <li><a asp-controller="Home" asp-action="AllDesigners">Designer Shop</a></li>
+                <li><a href="#">CONTACT</a></li>
+                <li id="notification_li">
+                    <span id="notification_count">3</span>
+                    <a asp-controller="Home" asp-action="MyDeals"><i class="fa fa-handshake-o" style="color:black !important;font-size:35px"></i></a>
+                </li>
+            </ul><!-- main-menu -->
+        </div><!-- conatiner -->
+    </header>
+    <header id="navbar">
+        <div class="top-menu">
+            <partial name="_LoginPartial" />
+            <div class="right-area">
+
+                <div class="src-area">
+                    <a href="~/Home/LastReco">Find our Recommendations</a>
+                    <button class="src-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
+                </div><!-- src-area -->
+                <ul class="social-icons">
+                    <li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+                    <li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+                    <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+                    <li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+                    <li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+                </ul><!-- right-area -->
+            </div><!-- right-area -->
+        </div><!-- top-menu -->
+        <div class="bottom-area">
+            <div class="menu-nav-icon" data-nav-menu="#second-menu"><i class="ion-navicon"></i></div>
+            <ul class="main-menu visible-on-click" id="second-menu">
+                <li><a asp-controller="Home" asp-action="TestView">Home</a></li>
+                <li><a asp-controller="Home" asp-action="AllPhotographers">Photographers</a></li>
+                <li><a asp-controller="Home" asp-action="AllWeddingHalls">Wedding Halls</a></li>
+                <li><a asp-controller="Home" asp-action="AllDesigners">Designer Shop</a></li>
+                <li><a href="#">CONTACT</a></li>
+                <li id="notification_li">
+                    <span id="notification_count">4</span>
+                    <a asp-controller="Home" asp-action="MyDeals"><i class="fa fa-handshake-o" style="color:black !important;font-size:35px"></i></a>
+                </li>
+            </ul><!-- main-menu -->
+        </div><!-- conatiner -->
+    </header>
+    <div class="">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="bg1">
+        <div class="container p-t-40 p-b-70">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 p-t-50">
+                    <!-- - -->
+                    <h4 class="txt13 m-b-33">
+                        Contact Us
+                    </h4>
+
+                    <ul class="m-b-70">
+                        <li class="txt14 m-b-14">
+                            <i class="fa fa-map-marker fs-16 dis-inline-block size19" aria-hidden="true"></i>
+                            8th floor, 379 Hudson St, New York, NY 10018
+                        </li>
+
+                        <li class="txt14 m-b-14">
+                            <i class="fa fa-phone fs-16 dis-inline-block size19" aria-hidden="true"></i>
+                            (+1) 96 716 6879
+                        </li>
+
+                        <li class="txt14 m-b-14">
+                            <i class="fa fa-envelope fs-13 dis-inline-block size19" aria-hidden="true"></i>
+                            contact@site.com
+                        </li>
+                    </ul>
+
+                    <!-- - -->
+                    <h4 class="txt13 m-b-32">
+                        Opening Times
+                    </h4>
+
+                    <ul>
+                        <li class="txt14">
+                            09:30 AM – 11:00 PM
+                        </li>
+
+                        <li class="txt14">
+                            Every Day
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 col-md-4 p-t-50">
+                    <!-- - -->
+                    <h4 class="txt13 m-b-33">
+                        Latest twitter
+                    </h4>
+
+                    <div class="m-b-25">
+                        <span class="fs-13 color2 m-r-5">
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                        </span>
+                        <a href="#" class="txt15">
+                            Eventique
+                        </a>
+
+                        <p class="txt14 m-b-18">
+                            Activello is a good option. It has a slider built into that displays the featured image in the slider.
+                            <a href="#" class="txt15">
+                                https://buff.ly/2zaSfAQ
+                            </a>
+                        </p>
+
+                        <span class="txt16">
+                            21 Dec 2017
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="fs-13 color2 m-r-5">
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                        </span>
+                        <a href="#" class="txt15">
+                            Eventique
+                        </a>
+
+                        <p class="txt14 m-b-18">
+                            Activello is a good option. It has a slider built into that displays
+                            <a href="#" class="txt15">
+                                https://buff.ly/2zaSfAQ
+                            </a>
+                        </p>
+
+                        <span class="txt16">
+                            21 Dec 2017
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 p-t-50">
+                    <!-- - -->
+                    <h4 class="txt13 m-b-33">
+                        Our Services
+                    </h4>
+                    <div class="m-b-25">
+                        <a href="#" class="txt10">
+                            Choose your Wedding Hall now
+                        </a>
+                        <a href="#" class="txt10">
+                            select perfect Photographer
+                        </a>
+                        <a href="#" class="txt10">
+                            Select your Invitation style
+                        </a>
+                        <a href="#" class="txt10">
+                            Eventique
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="end-footer bg2">
+            <div class="container">
+                <div class="flex-sb-m flex-w p-t-22 p-b-22">
+                    <div class="p-t-5 p-b-5">
+                        <a href="#" class="fs-15 c-white"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a>
+                        <a href="#" class="fs-15 c-white"><i class="fa fa-facebook m-l-18" aria-hidden="true"></i></a>
+                        <a href="#" class="fs-15 c-white"><i class="fa fa-twitter m-l-18" aria-hidden="true"></i></a>
+                    </div>
+
+                    <div class="txt17 p-r-20 p-t-5 p-b-5">
+                        Copyright &copy; 2020 All rights reserved  | <i class="fa fa-heart"></i> by <a href="https://colorlib.com" target="_blank">Eventique Team</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="btn-back-to-top bg0-hov" id="myBtn" style="display: flex;">
+        <span class="symbol-btn-back-to-top">
+            <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+        </span>
+    </div>
+    <div>
+
+    </div>
+    <script>
+        window.onscroll = function() {scrollFunction()};
+        function scrollFunction() {
+            if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
+                document.getElementById("navbar").style.top = "0";
+                document.getElementById('basicNav').style.visibility = "hidden";
+            } else {
+                document.getElementById("navbar").style.top = "-110px";
+                document.getElementById('basicNav').style.visibility = "visible";
+            }
+        }
+    </script>
+    <script src="~/js/common-js/jquery-3.1.1.min.js"></script>
+    <script src="~/js/common-js/tether.min.js"></script>
+    <script src="~/js/common-js/bootstrap.js"></script>
+    <script src="~/js/common-js/layerslider.js"></script>
+    <script src="~/js/common-js/scripts.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/popper.js/umd/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/ph.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/notifications_css/js/main.js"></script>
+    @RenderSection("Scripts", required: false)
+
+
+</body>
+</html>

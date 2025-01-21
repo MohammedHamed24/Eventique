@@ -1,0 +1,187 @@
+﻿@model Member
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <style>
+        body {
+            margin-top: 20px;
+            background: #f8f8f8
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row flex-lg-nowrap">
+            <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+                <div class="card p-3">
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="row">
+                    <div class="col mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="e-profile">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-auto mb-3">
+                                            <div class="mx-auto" style="width: 140px;">
+                                                <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                                                    <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;"><img src="@Model.ImagePath" width="140" height="140"/></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                                            <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">@Model.Name</h4>
+                                                <p class="mb-0">johnny.s</p>
+                                                <div class="text-muted"><small>Last seen 2 hours ago</small></div>
+                                            </div>
+                                            <div class="text-center text-sm-right">
+                                                <span class="badge badge-secondary">administrator</span>
+                                                <div class="text-muted"><small>Joined 09 Dec 2017</small></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+                                    </ul>
+                                    <div class="tab-content pt-3">
+                                        <div class="tab-pane active">
+                                            <form method="post" class="form" asp-controller="EditUser" asp-action="EditUser" enctype="multipart/form-data">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label asp-for="Name"></label>
+                                                                    <input class="form-control" asp-for="Name">
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                                        <input type="hidden" asp-for="ID" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label asp-for="Users.UserName"></label>
+                                                                    <input class="form-control" asp-for="Users.UserName" disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label asp-for="ImagePath" class="txt9">your Image Path </label>
+                                                                    <input asp-for="ImagePath" class="form-control" placeholder="your Image Path" disabled>
+                                                                    <span asp-validation-for="ImagePath" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label asp-for="ImageFilePath" class="txt9"></label>
+                                                                    <input type="file" asp-for="ImageFilePath" class="bo-rad-10 sizefull txt10 p-l-20" />
+                                                                    <span asp-validation-for="ImageFilePath" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label asp-for="Users.Email"></label>
+                                                                    <input class="form-control" asp-for="Users.Email" disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label asp-for="PhoneNumber"></label>
+                                                                    <input class="form-control" asp-for="PhoneNumber">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col mb-3">
+                                                                <div class="form-group">
+                                                                    <label asp-for="About"></label>
+                                                                    <textarea class="form-control" rows="5" asp-for="About"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-6 mb-3">
+                                                                                                        
+                                                    </div>
+                                                    <div class="col-12 col-sm-5 offset-sm-1 mb-3">
+                                                      
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col d-flex justify-content-end">
+                                                        <button class="btn btn-primary" type="submit">Save Changes</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                
+                                <div class="px-xl-3">
+                                    <a href="/Home/TestView">
+                                        <button class="btn btn-block btn-secondary">
+                                            <i class="fa fa-sign-out"></i>
+                                            <span>Home</span>
+                                        </button>
+                                    </a>
+                                </div>
+    
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title font-weight-bold">Support</h6>
+                                <p class="card-text">Get fast, free help from our friendly assistants.</p>
+                                <a asp-controller="EditUser" asp-action="ChangePassword">
+                                    <button type="button" class="btn btn-primary">Change Password</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>

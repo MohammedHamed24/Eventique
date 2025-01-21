@@ -1,0 +1,192 @@
+﻿@model IEnumerable<Eventique.Models.Photographer>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/css/Photographer.css" rel="stylesheet" />
+
+<input type="button" id="btnShowModal" value="Add New Photographer" class="btn btn-primary" />
+
+
+<table class="table" id="tableDesigner">
+    <thead style="color:grey">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">PhoneNumber</th>
+            <th scope="col">Email</th>
+
+        </tr>
+    </thead>
+    <tbody style="color:grey">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ph_Id</td>
+                <td>@item.Ph_Name</td>
+                <td>@item.Ph_Address</td>
+                <td>@item.Ph_PhoneNumber</td>
+                <td>@item.Users.Email</td>
+
+
+
+                <td>
+                    <a href="javascript:void(0);" id="showeditPhotographerModal" class="edit" data-toggle="modal">
+                        Edit
+                    </a>
+                    <input type="hidden" class="id" value="@item.Ph_Id" />
+                </td>
+                <td>
+                    <a href="javascript:void(0);" id="showdeletePhotographerModal" class="delete" data-toggle="modal">
+                        Delete
+                    </a>
+                    <input type="hidden" class="id" value="@item.Ph_Id" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" tabindex="-1" id="ModalCreate" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" asp-controller="Photoers" asp-action="Create">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Photoghrapher</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @*<div class="form-group">
+                            <input class="form-control" type="text" placeholder="ID" required="required" name="ID" />
+                        </div>*@
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Name"
+                               type="text" required="required" name="Ph_Name" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Address"
+                               type="text" required="required" name="Ph_Address" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="PhoneNumber"
+                               type="text" required="required" name="Ph_PhoneNumber" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Email"
+                               type="text" required="required" name="_Email" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Password"
+                               type="text" required="required" name="_Password" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Save" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="ModalUpdate" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" asp-controller="Photoers" asp-action="Update">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Photoghrapher</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Ph_Id" id="IDpho" required="required" name="Ph_Id" readonly />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Ph_Name"
+                               type="text" id="Namepho" required="required" name="Ph_Name" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Ph_Address"
+                               type="text" id="Addresspho" required="required" name="Ph_Address" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Ph_PhoneNumber"
+                               type="text" id="PhoneNumberpho" required="required" name="Ph_PhoneNumber" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Save" />
+                    @*<input type="hidden" name="Ph_Id" id="id" />*@
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalDelete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-controller="Photoers" asp-action="Remove">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Photoghrapher</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure want to delete this records?</p>
+                    <p class="text-warning"><small>this Action cannot be undone</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="cancel" />
+                    <input type="submit" class="btn btn-danger" value="Delete" />
+                    <input type="hidden" id="idhh" name="ID" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts2{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnShowModal").click(function () {
+                $("#ModalCreate").modal('show');
+            });
+
+            $(".delete").click(function () {
+                $("#ModalDelete").modal('show');
+            });
+
+            $(".edit").click(function () {
+                $("#ModalUpdate").modal('show');
+            });
+
+            $('table .delete').on('click', function () {
+                var id = $(this).parent().find('.id').val();
+                $("#ModalDelete #idhh").val(id);
+            });
+
+            $('table .edit').on('click', function () {
+                var id = $(this).parent().find('.id').val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/Photoers/Find/' + id,
+                    success: function (pho) {
+                        $('#ModalUpdate #IDpho').val(pho.Ph_Id);
+                        $('#ModalUpdate #Namepho').val(pho.Ph_Name);
+                        $('#ModalUpdate #Addresspho').val(pho.Ph_Address);
+                        $('#ModalUpdate #PhoneNumberpho').val(pho.Ph_PhoneNumber);
+                    }
+                });
+            });
+        });
+    </script>
+}

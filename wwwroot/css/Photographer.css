@@ -1,0 +1,27 @@
+﻿
+#tablephoto {
+    background-color: rgb(63, 69, 88);
+    box-shadow: 0 2px 5px 0 black, 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+    text-decoration-color: grey;
+    border-radius: 20px;
+}
+
+#btnShowModal {
+    margin: 20px;
+    margin-left: 470px;
+    background-color: rgb(136, 57, 57);
+}
+
+tr:hover {
+    color: white;
+    background-color: rgb(33, 42, 68);
+}
+
+table a {
+    color: rgb(136, 57, 57);
+}
+
+    table a:hover {
+        color: white;
+        text-decoration: none;
+    }

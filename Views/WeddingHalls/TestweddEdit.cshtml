@@ -1,0 +1,355 @@
+﻿@model Eventique.Models.WeddingHall
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "~/Views/Shared/_BackViewLayout.cshtml";
+}
+
+<style>
+    .form-control {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+</style>
+<link href="~/css/GetAllReviews.css" rel="stylesheet" />
+
+@if (SignInManager.IsSignedIn(User))
+{
+    if (User.Identity.Name != Model.Users.Email)
+    {
+        <div id="colorlib-main">
+            <section class="ftco-section contact-section">
+                <div class="container">
+                    <div class="row block-9" style="text-align:center">
+                        <h1>You Tried to Access page not found </h1>
+                        <h2>if you entered agian you will be blocked </h2>
+                    </div>
+                </div>
+            </section>
+        </div>
+    }
+    else
+    {
+<div id="colorlib-main">
+    <section class="home-slider js-fullheight owl-carousel" id="AbouSec">
+        <div class="slider-item js-fullheight" style="background-image: url(@Model.Hall_ImgPath);">
+            <div class="overlay"></div>
+            <div class="container-fluid">
+                <div class="row no-gutters slider-text slider-text-2 js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+                    <div class="col-md-10 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                        <a href="~/WeddingHalls/EditWedd/@Model.ID" class="btn btn-danger" style="font-size:20px">Edit Your Personal Informations</a>
+                        <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">@Model.Name</h1>
+                        <p class="mb-4" style="color:#b30202;font-size:larger;font-weight:bold;"> <span><i class="icon-star"></i></span>@Model.Rate / <span><i class="icon-user"></i></span> @Model.HallsReview.Count() User </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-section-2" id="GallerySEC">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:100px;">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                @*<a href="~/WeddingHalls/CreateNew/@Model.ID" class="btn btn-danger" style="font-size:20px">Edit your Invitation</a>*@
+                <h2 class="mb-4">Alubms</h2>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+            </div>
+        </div>
+        <div class="photograhy">
+            <div class="row no-gutters">
+                @{
+                    if (Model.Album != null)
+                    {
+
+                        @foreach (var item in Model.Album.MyProperty)
+                        {
+                            <div class="col-md-3">
+                                <a href="#" id="ShowPopupModal" data-toggle="modal" data-target="#myModal" class="photography-entry img d-flex justify-content-center align-items-center" style="background-image: url(@item.Img_Path);">
+                                    <div class="overlay"></div>
+                                    <div class="text text-center">
+                                        <h3>@item.Img_Name</h3>
+                                    </div>
+                                </a>
+                            </div>
+
+                        }
+
+                    }
+                    else
+                    {
+                        <h3 style="color:white;">There is no Album uploaded yet..</h3>
+                    }
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section-2" id="OfferSEC">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:100px;">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">Offers</h2>
+                <input style="" type="button" id="btnShowModal" value="Add Offer" class="btn btn-danger" />
+            </div>
+        </div>
+
+
+        @{
+            if (Model.weddingHallsOffers != null)
+            {
+                <div class="row justify-content-center mb-5 pb-2">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">All Offers</strong>
+                            </div>
+                            <div class="table-stats order-table ov-h">
+                                <table class="table ">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Price</th>
+                                            <th>Capcity</th>
+                                            <th>Dinner</th>
+                                            <th>Services</th>
+                                            <th>End Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.weddingHallsOffers)
+                                        {
+                                            <tr>
+                                                <td>@item.Title</td>
+                                                <td><span class="name">@item.Price $</span> </td>
+                                                <td><span class="product">@item.Capacity</span> </td>
+                                                <td><span class="count">@item.Dinner</span></td>
+                                                <td>@item.otherServices</td>
+                                                <td>@item.EndDate</td>
+                                                <td>
+                                                    <a href="javascript:void(0);" id="showModal" class="edit" data-toggle="modal">
+                                                        <span><i class="icon-edit"></i></span>
+                                                        <input type="hidden" class="hidID" value="@item.ID" />
+                                                    </a>
+
+                                                </td>
+                                                <td>
+                                                    <a href="javascript:void(0);" id="showdeleteDesignerModal" class="delete" data-toggle="modal">
+                                                        <span><i class="icon-remove"></i></span>
+                                                    </a>
+                                                    <input type="hidden" class="hidID" value="@item.ID" />
+                                                </td>
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                                <p style="color:darkred">@TempData["err"]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-7 heading-section text-center ftco-animate">
+                    <p>there is No Offers avilable yet</p>
+                </div>
+            }
+        }
+    </section>
+    @*********************************************************************************************************************************************@
+    <div class="modal fade" tabindex="-1" id="ModalCreate" data-keyboard="false" data-backdrop="static" style="z-index:2000">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form method="post" enctype="multipart/form-data" asp-controller="WeddingHalls" asp-action="AddOffer">
+                    <div class="modal-header">
+                        <h4 class="modal-title">ِAdd Offer </h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            ×
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Offer Title"
+                                       type="text" id="OfferTitle" required="required" name="Title" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Capacity"
+                                       type="number" id="OffersCapcity" required="required" name="Capacity" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Dinner Details"
+                                       type="text" id="OfferDetails" required="required" name="Dinner" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="otherServices"
+                                       type="text" id="otherServices" required="required" name="otherServices" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Price"
+                                       type="number" id="OffersPrice" required="required" name="Price" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="End Date"
+                                       type="text" id="OfferEndDate" required="required" name="EndDate" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" value="Save" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" tabindex="-1" id="ModalUpdate" data-keyboard="false" data-backdrop="static" style="z-index:2000">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form method="post" enctype="multipart/form-data" asp-controller="WeddingHalls" asp-action="UpdateOffer">
+                    <div class="modal-header">
+                        <h4 class="modal-title">ِAdd Offer </h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            ×
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="hidden" name="ID" id="ID" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Offer Title"
+                                       id="OfferTitle" required="required" name="Title" />
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="form-control" placeholder="Capacity"
+                                       id="OffersCapcity" required="required" name="Capacity" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Dinner Details"
+                                       id="OfferDinner" required="required" name="Dinner" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="otherServices"
+                                       id="otherServices" required="required" name="otherServices" />
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="form-control" placeholder="Price"
+                                       id="OffersPrice" required="required" name="Price" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="End Date"
+                                       id="OfferEndDate" required="required" name="EndDate" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-danger" value="Save" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalDelete" data-keyboard="false" data-backdrop="static" style="z-index:2000">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" asp-controller="WeddingHalls" asp-action="DeleteOffer">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete Offer</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            ×
+                        </button>
+                    </div>
+                    <input type="hidden" id="Idd" name="offId" />
+                    <div class="modal-body">
+                        <p>Are you sure want to delete this Offer?</p>
+                        <p class="text-warning"><small>this Action cannot be undone</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="cancel" />
+                        <input type="submit" class="btn btn-danger" value="Delete" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @*********************************************************************************************************************@
+
+    <section class="ftco-section-2" id="ReviewSEC">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:50px;">
+            <div class="col-md-12">
+                <div class="blog-comment">
+                    <h4>All Reviews</h4>
+                    <hr />
+                    <ul class="comments">
+                        @{
+                            @foreach (var item in Model.HallsReview)
+                            {
+
+                                <li class="clearfix">
+                                    <img src="@item.ReviewedMember.ImagePath" class="avatar" alt="">
+                                    <div class="post-comments">
+                                        <p class="meta">@item.ReviewDate.Day/@item.ReviewDate.Month/@item.ReviewDate.Year <a href="#"> </a> @item.ReviewedMember.Name  says: <i class="pull-right" style="margin-right:100px"><a href="#"><small>Rate: @item.Avg() </small></a></i></p>
+                                        <p>
+                                            @item.ReviewMessage
+                                        </p>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+    }
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnShowModal").click(function () {
+                $("#ModalCreate").modal('show');
+            });
+
+            $(".edit").click(function () {
+                $("#ModalUpdate").modal('show');
+            });
+
+            $(".delete").click(function () {
+                $("#ModalDelete").modal('show');
+            });
+
+            $('.table .delete').on('click', function () {
+                var id = $(this).parent().find('.hidID').val();
+                $('#ModalDelete #Idd').val(id);
+            });
+
+            $('table .edit').on('click', function () {
+                var id = $(this).parent().find('.hidID').val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/WeddingHalls/find/' + id,
+                    success: function (offer) {
+                        //debugger;
+                        $('#ModalUpdate #ID').val(offer.ID);
+                        $('#ModalUpdate #OfferTitle').val(offer.Title);
+                        $('#ModalUpdate #OffersCapcity').val(offer.Capacity);
+                        $('#ModalUpdate #OfferDinner').val(offer.Dinner);
+                        $('#ModalUpdate #otherServices').val(offer.otherServices);
+                        $('#ModalUpdate #OffersPrice').val(offer.Price);
+                        $('#ModalUpdate #OfferEndDate').val(offer.EndDate);
+                    }
+                });
+            });
+
+        });
+    </script>
+}
+

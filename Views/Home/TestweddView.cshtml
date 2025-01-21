@@ -1,0 +1,307 @@
+﻿@model WeddingHall
+@{
+    ViewData["Title"] = Model.Name;
+    Layout = "~/Views/Shared/_phoViewLayout.cshtml";
+}
+<style>
+    .form-control {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+</style>
+<link href="~/css/GetAllReviews.css" rel="stylesheet" />
+
+<div id="colorlib-main">
+    <section class="home-slider js-fullheight owl-carousel" id="AboutSEC">
+        @{ if (Model.Album != null)
+            {
+                foreach (var item in Model.Album.MyProperty)
+                {
+                    <div class="slider-item js-fullheight" style="background-image: url(@item.Img_Path);">
+                        <div class="overlay"></div>
+                        <div class="container-fluid">
+                            <div class="row no-gutters slider-text slider-text-2 js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+                                <div class="col-md-10 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                                    <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">@Model.Name</h1>
+                                    <p class="mb-4" style="color:#b30202;font-size:larger;font-weight:bold;"> <span><i class="icon-star"></i></span>@Model.Rate / <span><i class="icon-user"></i></span> @Model.HallsReview.Count() User </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <h3 style="color:white;">There is no Album uploaded yet..</h3>
+            }
+        }
+
+        @*<div class="slider-item js-fullheight" style="background-image:url(/Images/bg_3.jpg);">
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row no-gutters slider-text slider-text-2 js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+                        <div class="col-md-10 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                            <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Explore and travel</h1>
+                            <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Find great places to stay, eat, shop, or visit from local experts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+    </section>
+    <section class="ftco-section-2" id="GallerySEC">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:100px;">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">Alubms</h2>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+            </div>
+        </div>
+        <div class="photograhy">
+            <div class="row no-gutters">
+                @{if (Model.Album != null)
+                    {
+
+                        @foreach (var item in Model.Album.MyProperty)
+                        {
+                            <div class="col-md-3">
+                                <a href="#" id="ShowPopupModal" data-toggle="modal" data-target="#myModal" class="photography-entry img d-flex justify-content-center align-items-center" style="background-image: url(@item.Img_Path);">
+                                    <div class="overlay"></div>
+                                    <div class="text text-center">
+                                        <h3>@item.Img_Name</h3>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                        }
+
+                    }
+                    else
+                    {
+                        <h3 style="color:white;">There is no Album uploaded yet..</h3>
+                    }
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section-2" id="OfferSEC">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:100px;">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">Offers</h2>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+            </div>
+        </div>
+        @{
+            if (Model.weddingHallsOffers != null)
+            {
+                <div class="row justify-content-center mb-5 pb-2">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">All Offers</strong>
+                            </div>
+                            <div class="table-stats order-table ov-h">
+                                <table class="table ">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Price</th>
+                                            <th>Capcity</th>
+                                            <th>Dinner</th>
+                                            <th>Services</th>
+                                            <th>End Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in Model.weddingHallsOffers)
+                                        {
+                                            <tr>
+                                                <td>@item.Title</td>
+                                                <td><span class="name">@item.Price $</span> </td>
+                                                <td><span class="product">@item.Capacity</span> </td>
+                                                <td><span class="count">@item.Dinner</span></td>
+                                                <td>@item.otherServices</td>
+                                                <td>@item.EndDate</td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-7 heading-section text-center ftco-animate">
+                    <p>there is No Offers avilable yet</p>
+                </div>
+            }
+        }
+    </section>
+
+    <section class="ftco-section-2">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:50px;">
+            <div class="col-md-12">
+                <div class="blog-comment">
+                    <h4>All Reviews</h4>
+                    <hr />
+                    <ul class="comments">
+                        @{
+                            @foreach (var item in Model.HallsReview)
+                            {
+
+                                <li class="clearfix">
+                                    <img src="@item.ReviewedMember.ImagePath" class="avatar" alt="">
+                                    <div class="post-comments">
+                                        <p class="meta">@item.ReviewDate.Day/@item.ReviewDate.Month/@item.ReviewDate.Year <a href="#"> </a> @item.ReviewedMember.Name  says: <i class="pull-right" style="margin-right:100px"><a href="#"><small>Rate: @item.Avg() </small></a></i></p>
+                                        <p>
+                                            @item.ReviewMessage
+                                        </p>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-section-2" id="ReviewSEC">
+        <div class="row justify-content-center mb-5 pb-2" style="margin-top:100px;">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">Review</h2>
+            </div>
+        </div>
+        <form method="post" action="~/Home/PostHallReview/@Model.ID" enctype="multipart/form-data">
+            <div class="form-group row justify-content-center">
+                <input type="number" min="1" max="5" class="form-control col-md-4" placeholder="Quality" name="Quality">
+            </div>
+            <div class="form-group row justify-content-center">
+                <input type="number" min="1" max="5" class="form-control col-md-4" placeholder="Time Commitment" name="TimeManagement">
+            </div>
+            <div class="form-group row justify-content-center">
+                <input type="number" min="1" max="5" class="form-control col-md-4" placeholder="Deliver Commitmnent" name="DeleverTime">
+            </div>
+            <div class="form-group row justify-content-center">
+                <textarea name="ReviewMessage" id="" cols="15" rows="4" class="form-control col-md-4" placeholder="Comment"></textarea>
+            </div>
+            <div class="form-group row justify-content-center">
+                <input type="submit" value="Post Your Review" class="btn btn-primary py-3 px-5">
+            </div>
+        </form>
+    </section>
+
+
+    <section class="ftco-section contact-section" id="ContactSEC">
+        <div class="container">
+            <div class="row d-flex mb-5 contact-info">
+                <div class="col-md-12 mb-4">
+                    <h2 class="h4 font-weight-bold">Contact Information</h2>
+                </div>
+                <div class="w-100"></div>
+                <div class="col-md-3">
+                    <p><span>Address:</span>@Model.Address</p>
+                </div>
+                <div class="col-md-3">
+                    <p><span>Phone:</span> <a href="#">@Model.PhoneNumber</a></p>
+                </div>
+                <div class="col-md-3">
+                    <p><span>Email:</span> <a href="#">@Model.Users.Email</a></p>
+                </div>
+                <div class="col-md-3">
+                    <p><span>Website</span> <a href="#">yoursite.com</a></p>
+                </div>
+            </div>
+            <div class="row block-9">
+                <div class="col-md-6 order-md-last pr-md-5">
+                    <form method="post" action="~/Home/WeddRequest/@Model.ID" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="Date">Enter your date</label>
+                            <input type='text' class="form-control" id='txtDateAvailable' name="Date" onmousedown="myFun('@Model.TestDate')" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Offer">Enter your Offer Title</label>
+                            <select id="Offer" name="offerTitle" class="form-control">
+                                @{
+                                    //if (Model.weddingHallsOffers.Count() != 0)
+                                    //{
+
+                                    if (Model.weddingHallsOffers != null)
+                                    {
+                                        foreach (var item in Model.weddingHallsOffers)
+                                        {
+
+                                            <option>@item.Title</option>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option>No offers</option>
+                                    }
+
+                                }
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="Message" id="Message" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Send Request" class="btn btn-primary py-3 px-5">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-6">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section Scripts
+{
+    <script>
+        var availableDates;
+        function myFun(list) {
+            availableDates = list.split(',');
+            $('#txtDateAvailable').datepicker({
+                beforeShowDay:
+                    function (dt) {
+                        return [available(dt), ""];
+                    }
+                , changeMonth: true, changeYear: false
+            });
+        }
+
+        function available(date) {
+            dmy = date.getDate() + "/0" + (date.getMonth() + 1) + "/" + date.getFullYear();
+            var li = dmy.split('/');
+            if (li[0].length == 1) {
+                dmy = `0${li[0]}/${li[1]}/${li[2]}`;
+            }
+            else {
+                //11-05-2020
+                dmy = date.getDate() + "/0" + (date.getMonth() + 1) + "/" + date.getFullYear();
+            }
+            if ($.inArray(dmy, availableDates) != -1) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+
+    </script>
+    <script type="text/javascript" src="~/js/jqueryui/jquery-ui.min.js"></script>
+
+}
+
+
+}

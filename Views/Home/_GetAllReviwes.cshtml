@@ -1,0 +1,30 @@
+﻿@model List<Review>
+<link href="~/css/GetAllReviews.css" rel="stylesheet" />
+
+<div class="container bootstrap snippet justify-content-center" id="cont">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="blog-comment">
+                <h3 class="text-success">All Reviews</h3>
+                <hr />
+                <ul class="comments">
+                    @{
+                        @foreach (var item in Model)
+                        {
+
+                            <li class="clearfix">
+                                <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">
+                                <div class="post-comments">
+                                    <p class="meta">@item.ReviewDate.Day/@item.ReviewDate.Month/@item.ReviewDate.Year <a href="#">@item.ReviewedMember.Name </a>   says : <i class="pull-right" style="margin-right:100px"><a href="#"><small>ss</small></a></i></p>
+                                    <p>
+                                        @item.ReviewMessage
+                                    </p>
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

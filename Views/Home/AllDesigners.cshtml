@@ -1,0 +1,135 @@
+﻿@model List<Designer>
+@{
+    ViewData["Title"] = "AllDesigners";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+@section Styles{
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link rel="icon" type="image/png" href="~/Images/newLogo.png" />
+    <link rel="stylesheet" type="text/css" href="~/pato/fonts/themify/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/pato/css/main.css">
+    <link rel="icon" type="image/png" href="~/Images/newLogo.png" />
+    <link rel="stylesheet" type="text/css" href="~/css/CardDesigner.css">
+    <link href="~/css/AllWeddingHallsStyle.css" rel="stylesheet" />
+    <link href="~/search/css/main.css" rel="stylesheet" />
+
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<section>
+    <div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(/Images/alldesigners.jpg);">
+        <div class="col-md-8 offset-md-2 mt-5" style="">
+        </div>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center">
+                        <h2 class="page-title">Designres</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Designer Shop</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section style="margin-top:100px;position:relative" class="container">
+
+
+        <div class="col-lg-12 text-center mt-5">
+
+        </div>
+
+        @{
+            foreach (var item in Model)
+            {
+                <div class="blog-card" style="position:relative;margin-top:50px;height:250px;">
+                    <div class="meta">
+                        <div class="photo" style="background-image: url(..@item.Designer_ImgPath)"></div>
+                        <ul class="details">
+                            <li class="author"><a href="#">@item.ShopName</a></li>
+                            <li class="date">Aug. 24, 2015</li>
+                        </ul>
+                    </div>
+                    <div class="description">
+                        <h1>@item.ShopName</h1>
+                        <h2>Opening a door to the future</h2>
+                        <p> @item.Offers</p>
+                        <p class="read-more">
+                            <a href="~/Home/TestDesiView/@item.ID">Go To Profile</a>
+                        </p>
+                    </div>
+                </div>
+
+            }
+        }
+    </section>
+</section>
+@section Scripts {
+    <script type="text/javascript" src="~/pato/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="~/pato/vendor/animsition/js/animsition.min.js"></script>
+    <script type="text/javascript" src="~/pato/vendor/bootstrap/js/popper.js"></script>
+    <script type="text/javascript" src="~/pato/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/pato/vendor/select2/select2.min.js"></script>
+    <script type="text/javascript" src="~/pato/vendor/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="~/pato/vendor/daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="~/pato/vendor/slick/slick.min.js"></script>
+    <script type="text/javascript" src="~/pato/js/slick-custom.js"></script>
+    <script type="text/javascript" src="~/pato/vendor/parallax100/parallax100.js"></script>
+    <script type="text/javascript">
+        $('.parallax100').parallax100();
+    </script>
+    <script type="text/javascript" src="~/pato/vendor/countdowntime/countdowntime.js"></script>
+    <script type="text/javascript" src="~/pato/vendor/lightbox2/js/lightbox.min.js"></script>
+    <script src="~/pato/js/main.js"></script>
+
+    @*---------------------for search bar -----------------------*@
+    <script src="~/search/js/extention/choices.js"></script>
+    <script>
+        const customSelects = document.querySelectorAll("select");
+        const deleteBtn = document.getElementById('delete')
+        const choices = new Choices('select',
+            {
+                searchEnabled: false,
+                removeItemButton: true,
+                itemSelectText: '',
+            });
+        for (let i = 0; i < customSelects.length; i++) {
+            customSelects[i].addEventListener('addItem', function (event) {
+                if (event.detail.value) {
+                    let parent = this.parentNode.parentNode
+                    parent.classList.add('valid')
+                    parent.classList.remove('invalid')
+                }
+                else {
+                    let parent = this.parentNode.parentNode
+                    parent.classList.add('invalid')
+                    parent.classList.remove('valid')
+                }
+            }, false);
+        }
+        deleteBtn.addEventListener("click", function (e) {
+            e.preventDefault()
+            const deleteAll = document.querySelectorAll('.choices__button')
+            for (let i = 0; i < deleteAll.length; i++) {
+                deleteAll[i].click();
+            }
+        });
+
+    </script>
+    @*---------------------for search bar -----------------------*@
+
+}

@@ -1,0 +1,126 @@
+﻿@model Eventique.Models.Photographer
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Deals";
+    Layout = "~/Views/Shared/_BackViewLayout.cshtml";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/Calendar/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    if (User.Identity.Name != Model.Users.Email)
+    {
+        <div id="colorlib-main">
+            <section class="ftco-section contact-section">
+                <div class="container">
+                    <div class="row block-9" style="text-align:center">
+                        <h1>You Tried to Access page not found </h1>
+                        <h2>if you entered agian you will be blocked </h2>
+                    </div>
+                </div>
+            </section>
+        </div>
+    }
+    else
+    {
+        <!----------------------------------------------------------popup Section Hidden------------------------------------------------------>
+        @*<div class="modal fade" tabindex="-1" id="ModalStatus" data-keyboard="false" data-backdrop="static" style="z-index:2000">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <form method="post" asp-controller="Photographers" asp-action="Update">
+                        <input type="hidden" name="Inv_Id" id="Inv_Id" />
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Post a Request</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p> Are you sure you want to accept that deal?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Accept</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>*@
+        <!------------------------------------------------------------------End popup Section Hidden---------------------------------------------------------------------->
+
+        <div id="colorlib-main">
+            <section class="ftco-section contact-section">
+                <div class="container">
+                    <div class="row block-9">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Request ID</th>
+                                    <th>Avatar</th>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Price</th>
+                                    <th>Message</th>
+                                    <th>Request Time</th>
+                                    <th>Status</th>
+                                    <th>Reply</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model.Ph_Requests)
+                                    {
+                                        <tr>
+                                            <td>@item.ID</td>
+                                            <td>
+                                                <div class="round-img">
+                                                    <a href="#"><img class="rounded-circle" width="60" height="60" src="@item.RequestUser.ImagePath" alt=""></a>
+                                                </div>
+                                            </td>
+                                            <td>@item.RequestUser.Name</td>
+                                            <td>@item.Date</td>
+                                            <td>@Model.Ph_Price</td>
+                                            <td>@item.Message</td>
+                                            <td>@item.Time</td>
+                                            <td>@item.Status</td>
+                                            <td>
+                                                <form method="post" action="~/Photographers/AcceptDeal/@item.ID" >
+                                                    <button type="submit" id="btnaccept" class="btn btn-success edit" onclick="disable()">
+                                                        Accept
+                                                    </button>
+                                                </form>
+                                                <form method="post" action="~/Photographers/CancelDeal/@item.ID">
+                                                    <button type="submit" id="btncancel" class="btn btn-danger" onclick="Enable()">
+                                                        Cancel
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script>
+            const button = document.querySelector('#btnaccept')
+            const button2 = document.querySelector('#btncancel')
+            function disable() {
+                button.style.visibility = "hidden";
+                button2.style.visibility = "visible";
+            }
+            function Enable() {
+                button.style.visibility = "visible";
+                button2.style.visibility = "hidden";
+            }
+        </script>
+
+    }
+}

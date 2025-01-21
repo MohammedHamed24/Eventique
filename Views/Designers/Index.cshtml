@@ -1,0 +1,164 @@
+﻿@*@model List<Designer>
+@{
+    viewdata["title"] = "index";
+    layout = "~/views/shared/_backlayout.cshtml";
+}
+<link href="~/css/designers.css" rel="stylesheet" />
+<input type="button" id="btnshowmodal" value="add new designers" class="btn btn-primary" />
+
+<table class="table" id="tabledesigner">
+    <thead style="color:grey">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">phonenumber</th>
+        </tr>
+    </thead>
+    <tbody style="color:grey">
+        @foreach (var item in model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.name</td>
+                <td>@item.phonenumber</td>
+                <td>
+                    <a href="javascript:void(0);" id="showeditdesignermodal" class="edit" data-toggle="modal">
+                        edit
+                    </a>
+                    <input type="hidden" class="id" value="@item.id" />
+                </td>
+                <td>
+                    <a href="javascript:void(0);" id="showdeletedesignermodal" class="delete" data-toggle="modal">
+                        delete
+                    </a>
+                    <input type="hidden" class="id" value="@item.id" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" tabindex="-1" id="modalcreate" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" asp-controller="designers" asp-action="adddesigner">
+                <div class="modal-header">
+                    <h4 class="modal-title">add hotel</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="id" required="required" name="id" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="name"
+                               type="text" required="required" name="name" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="phonenumber"
+                               type="text" required="required" name="phonenumber" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="save" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modalupdate" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" asp-controller="designers" asp-action="updatedesigner">
+                <div class="modal-header">
+                    <h4 class="modal-title">update hotel</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="id" id="iddesigner;" required="required" name="id" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="name"
+                               type="text" id="namedesigner" required="required" name="name" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="phonenumber"
+                               type="text" id="phonenumberdesigner" required="required" name="phonenumber" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="save" />
+                    <input type="hidden" name="id" id="id" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modaldelete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-controller="designers" asp-action="removedesigner">
+                <div class="modal-header">
+                    <h4 class="modal-title">delete designer</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>are you sure want to delete this records?</p>
+                    <p class="text-warning"><small>this action cannot be undone</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="cancel" />
+                    <input type="submit" class="btn btn-danger" value="delete" />
+                    <input type="hidden" id="idhh" name="id" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts2{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnshowmodal").click(function () {
+                $("#modalcreate").modal('show');
+            });
+
+            $(".delete").click(function () {
+                $("#modaldelete").modal('show');
+            });
+
+            $(".edit").click(function () {
+                $("#modalupdate").modal('show');
+            });
+
+            $('table .delete').on('click', function () {
+                var id = $(this).parent().find('.id').val();
+                $("#modaldelete #idhh").val(id);
+            });
+
+            $('table .edit').on('click', function () {
+                var id = $(this).parent().find('.id').val();
+                $.ajax({
+                    type: 'get',
+                    url: '/designers/finddesigner/' + id ,
+                    success: function (designer) {
+                        $('#modalupdate #iddesigner').val(designer.id);
+                        $('#modalupdate #namedesigner').val(designer.name);
+                        $('#modalupdate #phonenumberdesigner').val(designer.phonenumber);
+                    }
+                });
+            });
+        });
+    </script>
+}
+<h1>index</h1>*@
+

@@ -1,0 +1,271 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+#aside {
+    background-color: rgb(63, 69, 88);
+    width: 100%;
+    height: 725px;
+    position: sticky;
+    overflow: hidden;
+}
+
+
+
+#RightSide {
+    width: 100%;
+    background-color: rgb(219, 219, 219);
+    color: black;
+    height: auto;
+    position: relative;
+}
+
+nav {
+    background-color: white;
+    color: black;
+    box-shadow: 0 2px 5px 0 black, 0 2px 7px 0 rgba(0, 0, 0, 0.19);
+}
+
+#Admin {
+    left: 20px;
+    width: 100%;
+    position: relative;
+    font-size: 25px;
+    padding: 15px;
+    color: white;
+    background-color: rgb(136, 57, 57);
+}
+
+#dash {
+    font-size: 20px;
+    text-decoration-color: grey;
+    background-color: rgb(63, 69, 88);
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+    #dash:hover {
+        background-color: rgb(33, 42, 68);
+        color: white;
+        text-decoration: none;
+    }
+
+#Photographer {
+    font-size: 20px;
+    text-decoration-color: grey;
+    background-color: rgb(63, 69, 88);
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    text-decoration: none
+}
+
+    #Photographer:hover {
+        background-color: rgb(33, 42, 68);
+        color: white;
+        text-decoration: none;
+    }
+
+#Designer {
+    font-size: 20px;
+    text-decoration-color: grey;
+    background-color: rgb(63, 69, 88);
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    text-decoration: none
+}
+
+    #Designer:hover {
+        background-color: rgb(33, 42, 68);
+        color: white;
+        text-decoration: none;
+    }
+
+#Hotel {
+    font-size: 20px;
+    text-decoration-color: grey;
+    background-color: rgb(63, 69, 88);
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    text-decoration: none
+}
+
+    #Hotel:hover {
+        background-color: rgb(33, 42, 68);
+        color: white;
+        text-decoration: none;
+    }
+
+#Member {
+    font-size: 20px;
+    text-decoration-color: grey;
+    background-color: rgb(63, 69, 88);
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    text-decoration: none
+}
+
+    #Member:hover {
+        background-color: rgb(33, 42, 68);
+        color: white;
+        text-decoration: none;
+    }
+
+.link {
+    margin-top: 10px;
+    left: 15px;
+    width: 100%;
+    position: relative;
+    color: grey;
+    text-decoration: none;
+}
+
+
+
+
+/**{
+    margin: 0;
+    padding: 0;
+}
+
+#aside {
+    background-color: rgb(63, 69, 88);
+    width: 100%;
+    height:100%;
+    position:relative
+}
+
+#Admin {
+    left: 20px;
+    font-size: 25px;
+    padding: 15px;
+    color: white;
+    background-color: rgb(136, 57, 57);
+}
+
+#dash {
+    font-size: 20px;
+    text-decoration-color: grey;
+    background-color: rgb(63, 69, 88);
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+    #dash:hover {
+        background-color: rgb(33, 42, 68);
+        color: white;
+        text-decoration: none;
+    }
+
+#Photographer {
+    font-size: 20px;
+    text-decoration-color: grey;
+    background-color: rgb(63, 69, 88);
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    text-decoration: none
+}
+
+    #Photographer:hover {
+        background-color: rgb(33, 42, 68);
+        color: white;
+        text-decoration: none;
+    }
+
+#Designer {
+    font-size: 20px;
+    text-decoration-color: grey;
+    background-color: rgb(63, 69, 88);
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    text-decoration: none
+}
+
+    #Designer:hover {
+        background-color: rgb(33, 42, 68);
+        color: white;
+        text-decoration: none;
+    }
+
+#Hotel {
+    font-size: 20px;
+    text-decoration-color: grey;
+    background-color: rgb(63, 69, 88);
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    text-decoration: none
+}
+
+    #Hotel:hover {
+        background-color: rgb(33, 42, 68);
+        color: white;
+        text-decoration: none;
+    }
+
+#Member {
+    font-size: 20px;
+    text-decoration-color: grey;
+    background-color: rgb(63, 69, 88);
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    text-decoration: none
+}
+
+#Member:hover {
+    background-color: rgb(33, 42, 68);
+    color: white;
+    text-decoration: none;
+}
+
+.link {
+    margin-top: 10px;
+    left: 15px;
+    width: 100%;
+    position: relative;
+    color: grey;
+    text-decoration: none;
+}
+
+#RightSide {
+    width: 100%;
+    position:relative;
+    height:100%;
+    background-color: rgb(219, 219, 219);
+    color: black;
+}
+
+nav {
+    background-color: white;
+    color: black;
+    box-shadow: 0 2px 5px 0 black, 0 2px 7px 0 rgba(0, 0, 0, 0.19);
+}*/
